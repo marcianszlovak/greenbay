@@ -1,28 +1,25 @@
-import express from "express";
-import {
-  authUser,
-  deleteUser,
-  getUserById,
-  getUserProfile,
-  getUsers,
-  registerUser,
-  updateUser,
-  updateUserProfile,
-} from "../controllers/userController.js";
-import { admin, protect } from "../middleware/authMiddleware.js";
+import express from 'express';
+import { admin, protect } from '../middleware/authMiddleware.js';
+import { container, setup } from '../di-setup.js';
 
+setup();
 const router = express.Router();
 
-router.route("/").post(registerUser).get(protect, admin, getUsers);
-router.post("/login", authUser);
+const userController = container.resolve('userController');
+
 router
-  .route("/profile")
-  .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+    .route('/')
+    .post(userController.registerUser)
+    .get(protect, admin, userController.getUsers);
+router.post('/login', userController.authUser);
 router
-  .route("/:id")
-  .delete(protect, admin, deleteUser)
-  .get(protect, admin, getUserById)
-  .put(protect, admin, updateUser);
+    .route('/profile')
+    .get(protect, userController.getUserProfile)
+    .put(protect, userController.updateUserProfile);
+router
+    .route('/:id')
+    .delete(protect, admin, userController.deleteUser)
+    .get(protect, admin, userController.getUserById)
+    .put(protect, admin, userController.updateUser);
 
 export default router;

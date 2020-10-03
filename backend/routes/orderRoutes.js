@@ -1,19 +1,21 @@
-import express from "express";
-const router = express.Router();
-import {
-  addOrderItems,
-  getOrderById,
-  updateOrderToPaid,
-  updateOrderToDelivered,
-  getMyOrders,
-  getOrders,
-} from "../controllers/orderController.js";
-import { protect, admin } from "../middleware/authMiddleware.js";
+import express from 'express';
+import { admin, protect } from '../middleware/authMiddleware.js';
+import { container, setup } from '../di-setup.js';
 
-router.route("/").post(protect, addOrderItems).get(protect, admin, getOrders);
-router.route("/myorders").get(protect, getMyOrders);
-router.route("/:id").get(protect, getOrderById);
-router.route("/:id/pay").put(protect, updateOrderToPaid);
-router.route("/:id/deliver").put(protect, admin, updateOrderToDelivered);
+setup();
+const router = express.Router();
+
+const orderController = container.resolve('orderController');
+
+router
+    .route('/')
+    .post(protect, orderController.addOrderItems)
+    .get(protect, admin, orderController.getOrders);
+router.route('/myorders').get(protect, orderController.getMyOrders);
+router.route('/:id').get(protect, orderController.getOrderById);
+router.route('/:id/pay').put(protect, orderController.updateOrderToPaid);
+router
+    .route('/:id/deliver')
+    .put(protect, admin, orderController.updateOrderToDelivered);
 
 export default router;

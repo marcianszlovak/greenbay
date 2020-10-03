@@ -1,23 +1,24 @@
-import express from "express";
-const router = express.Router();
-import {
-  getProducts,
-  getProductById,
-  deleteProduct,
-  createProduct,
-  updateProduct,
-  createProductReview,
-  getTopProducts,
-} from "../controllers/productController.js";
-import { protect, admin } from "../middleware/authMiddleware.js";
+import express from 'express';
+import { admin, protect } from '../middleware/authMiddleware.js';
+import { container, setup } from '../di-setup.js';
 
-router.route("/").get(getProducts).post(protect, admin, createProduct);
-router.route("/:id/reviews").post(protect, createProductReview);
-router.get("/top", getTopProducts);
+setup();
+const router = express.Router();
+
+const productController = container.resolve('productController');
+
 router
-  .route("/:id")
-  .get(getProductById)
-  .delete(protect, admin, deleteProduct)
-  .put(protect, admin, updateProduct);
+    .route('/')
+    .get(productController.getProducts)
+    .post(protect, admin, productController.createProduct);
+router
+    .route('/:id/reviews')
+    .post(protect, productController.createProductReview);
+router.get('/top', productController.getTopProducts);
+router
+    .route('/:id')
+    .get(productController.getProductById)
+    .delete(protect, admin, productController.deleteProduct)
+    .put(protect, admin, productController.updateProduct);
 
 export default router;
