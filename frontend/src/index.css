@@ -1,0 +1,70 @@
+main {
+  min-height: 80vh;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+h1 {
+  font-size: 1.8rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
+}
+
+.rating span {
+  margin: 0.1rem;
+}
+
+#main-header {
+  background-color: yellowgreen;
+}
+
+#search-box-btn {
+  color: black;
+}
+
+#search-box-btn:hover {
+  color: white;
+}
+
+#shop-brand {
+  color: black;
+}
+
+#shop-brand:hover {
+  color: white;
+  background-color: #4bbf73;
+}
+
+/*#product {*/
+/*  background-color: yellowgreen;*/
+/*}*/
+
+#username {
+  color: black;
+}
+
+#username:hover {
+  color: white;
+}
+
+#cart {
+  color: black;
+}
+
+#cart:hover {
+  color: white;
+}
+
+#admin-menu {
+  color: black;
+}
+
+#admin-menu:hover {
+  color: white;
+}
