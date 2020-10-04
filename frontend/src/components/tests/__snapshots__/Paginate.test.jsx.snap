@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<ul
+  className="pagination"
+>
+  <li
+    className="page-item"
+  >
+    <a
+      className="page-link"
+      href="/page/1"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      1
+    </a>
+  </li>
+  <li
+    className="page-item"
+  >
+    <a
+      className="page-link"
+      href="/page/2"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      2
+    </a>
+  </li>
+  <li
+    className="page-item active"
+  >
+    <span
+      className="page-link"
+      disabled={false}
+      href="/page/3"
+      onClick={[Function]}
+    >
+      3
+      <span
+        className="sr-only"
+      >
+        (current)
+      </span>
+    </span>
+  </li>
+  <li
+    className="page-item"
+  >
+    <a
+      className="page-link"
+      href="/page/4"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      4
+    </a>
+  </li>
+  <li
+    className="page-item"
+  >
+    <a
+      className="page-link"
+      href="/page/5"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      5
+    </a>
+  </li>
+  <li
+    className="page-item"
+  >
+    <a
+      className="page-link"
+      href="/page/6"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+    >
+      6
+    </a>
+  </li>
+</ul>
+`;
