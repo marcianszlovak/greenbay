@@ -1,44 +1,44 @@
 main {
-    min-height: 80vh;
+  min-height: 80vh;
 }
 
 h3 {
-    padding: 1rem 0;
+  padding: 1rem 0;
 }
 
 h1 {
-    font-size: 1.8rem;
-    padding: 1rem 0;
+  font-size: 1.8rem;
+  padding: 1rem 0;
 }
 
 h2 {
-    font-size: 1.4rem;
-    padding: 0.5rem 0;
+  font-size: 1.4rem;
+  padding: 0.5rem 0;
 }
 
 .rating span {
-    margin: 0.1rem;
+  margin: 0.1rem;
 }
 
 #main-header {
-    background-color: yellowgreen;
+  background-color: yellowgreen;
 }
 
 #search-box-btn {
-    color: black;
+  color: black;
 }
 
 #search-box-btn:hover {
-    color: white;
+  color: white;
 }
 
 #shop-brand {
-    color: black;
+  color: black;
 }
 
 #shop-brand:hover {
-    color: white;
-    background-color: #4bbf73;
+  color: white;
+  background-color: #4bbf73;
 }
 
 /*#product {*/
@@ -46,25 +46,25 @@ h2 {
 /*}*/
 
 #username {
-    color: black;
+  color: black;
 }
 
 #username:hover {
-    color: white;
+  color: white;
 }
 
 #cart {
-    color: black;
+  color: black;
 }
 
 #cart:hover {
-    color: white;
+  color: white;
 }
 
 #admin-menu {
-    color: black;
+  color: black;
 }
 
 #admin-menu:hover {
-    color: white;
+  color: white;
 }

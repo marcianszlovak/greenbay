@@ -5,12 +5,12 @@ import SearchBox from '../SearchBox';
 import { MemoryRouter } from 'react-router-dom';
 
 it('should render correctly', () => {
-    const tree = renderer
-        .create(
-            <MemoryRouter>
-                <SearchBox />
-            </MemoryRouter>
-        )
-        .toJSON();
-    expect(tree).toMatchSnapshot();
+  const tree = renderer
+    .create(
+      <MemoryRouter>
+        <SearchBox />
+      </MemoryRouter>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

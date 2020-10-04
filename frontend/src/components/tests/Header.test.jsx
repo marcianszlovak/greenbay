@@ -8,21 +8,21 @@ import Header from '../Header';
 import store from '../../store';
 
 describe('Header Component', () => {
-    const MockHeader = (
-        <MemoryRouter>
-            <Provider store={store}>
-                <Header />
-            </Provider>
-        </MemoryRouter>
-    );
+  const MockHeader = (
+    <MemoryRouter>
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    </MemoryRouter>
+  );
 
-    it('should render correctly', () => {
-        const wrapper = shallow(MockHeader);
-        expect(wrapper.contains(<Header />)).toBe(true);
-    });
+  it('should render correctly', () => {
+    const wrapper = shallow(MockHeader);
+    expect(wrapper.contains(<Header />)).toBe(true);
+  });
 
-    it('should match the snapshot', () => {
-        const tree = renderer.create(MockHeader).toJSON();
-        expect(tree).toMatchSnapshot();
-    });
+  it('should match the snapshot', () => {
+    const tree = renderer.create(MockHeader).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
