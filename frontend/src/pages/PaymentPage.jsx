@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../components/FormContainer";
-import CheckoutPage from "../components/CheckoutPage";
-import { savePaymentMethod } from "../actions/cartActions";
+import React, { useState } from 'react';
+import { Button, Col, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import FormContainer from '../components/FormContainer';
+import CheckoutPage from '../components/CheckoutPage';
+import { savePaymentMethod } from '../actions/cartActions';
 
 const PaymentPage = ({ history }) => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(state => state.cart);
   const { shippingAddress } = cart;
 
   if (!shippingAddress) {
-    history.push("/shipping");
+    history.push('/shipping');
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState('PayPal');
 
   const dispatch = useDispatch();
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
-    history.push("/placeorder");
+    history.push('/placeorder');
   };
 
   return (
@@ -38,7 +38,7 @@ const PaymentPage = ({ history }) => {
               name="paymentMethod"
               value="PayPal"
               checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={e => setPaymentMethod(e.target.value)}
             />
           </Col>
         </Form.Group>

@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import CheckoutPage from "../components/CheckoutPage";
-import { createOrder } from "../actions/orderActions";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
+import CheckoutPage from '../components/CheckoutPage';
+import { createOrder } from '../actions/orderActions';
 
 const PlaceOrderPage = ({ history }) => {
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(state => state.cart);
 
   //   Calculate prices
-  const addDecimals = (num) => {
+  const addDecimals = num => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
 
@@ -27,7 +27,7 @@ const PlaceOrderPage = ({ history }) => {
     Number(cart.taxPrice)
   ).toFixed(2);
 
-  const orderCreate = useSelector((state) => state.orderCreate);
+  const orderCreate = useSelector(state => state.orderCreate);
   const { order, success, error } = orderCreate;
 
   useEffect(() => {
@@ -61,8 +61,8 @@ const PlaceOrderPage = ({ history }) => {
               <h2>Shipping</h2>
               <p>
                 <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
-                {cart.shippingAddress.postalCode},{" "}
+                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
+                {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>

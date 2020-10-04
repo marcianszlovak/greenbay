@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component should match the snapshot 1`] = `
+<header>
+  <nav
+    className="navbar navbar-expand-lg navbar-light"
+    id="main-header"
+  >
+    <div
+      className="container-fluid"
+    >
+      <a
+        className="p-2 active navbar-brand"
+        href="/"
+        id="shop-brand"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        greenBay
+      </a>
+      <button
+        aria-controls="basic-navbar-nav"
+        aria-label="Toggle navigation"
+        className="navbar-toggler collapsed"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        aria-expanded={null}
+        className="navbar-collapse collapse"
+        id="basic-navbar-nav"
+      >
+        <form
+          className="form-inline"
+          onSubmit={[Function]}
+        >
+          <input
+            className="mr-sm-2 ml-sm-5 form-control"
+            name="q"
+            onChange={[Function]}
+            placeholder="Search Products..."
+            type="text"
+          />
+          <button
+            className="p-2 btn btn-outline-success"
+            disabled={false}
+            id="search-box-btn"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+        <div
+          className="ml-auto navbar-nav"
+          id="user-info"
+          onKeyDown={[Function]}
+        >
+          <a
+            className="nav-link"
+            data-rb-event-key="/cart"
+            href="/cart"
+            id="cart"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            <i
+              className="fas fa-shopping-cart"
+            />
+             Cart
+          </a>
+          <a
+            className="nav-link"
+            data-rb-event-key="/login"
+            href="/login"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            <i
+              className="fas fa-user"
+            />
+             Sign In
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+`;

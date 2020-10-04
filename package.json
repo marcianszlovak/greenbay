@@ -16,6 +16,7 @@
   "author": "Marcian Szlovak",
   "license": "MIT",
   "dependencies": {
+    "awilix": "^4.2.6",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",

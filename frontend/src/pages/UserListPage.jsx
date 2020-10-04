@@ -1,33 +1,33 @@
-import React, { useEffect } from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import { Button, Table } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import { deleteUser, listUsers } from "../actions/userActions";
+import React, { useEffect } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Button, Table } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import { deleteUser, listUsers } from '../actions/userActions';
 
 const UserListPage = ({ history }) => {
   const dispatch = useDispatch();
 
-  const userList = useSelector((state) => state.userList);
+  const userList = useSelector(state => state.userList);
   const { loading, error, users } = userList;
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userDelete = useSelector((state) => state.userDelete);
+  const userDelete = useSelector(state => state.userDelete);
   const { success: successDelete } = userDelete;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
-      history.push("/login");
+      history.push('/login');
     }
   }, [dispatch, history, successDelete, userInfo]);
 
-  const deleteHandler = (id) => {
-    if (window.confirm("Are you sure")) {
+  const deleteHandler = id => {
+    if (window.confirm('Are you sure')) {
       dispatch(deleteUser(id));
     }
   };
@@ -51,7 +51,7 @@ const UserListPage = ({ history }) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map(user => (
               <tr key={user._id}>
                 <td>{user._id}</td>
                 <td>{user.name}</td>
@@ -60,15 +60,15 @@ const UserListPage = ({ history }) => {
                 </td>
                 <td>
                   {user.isAdmin ? (
-                    <i className="fas fa-check" style={{ color: "green" }}></i>
+                    <i className="fas fa-check" style={{ color: 'green' }} />
                   ) : (
-                    <i className="fas fa-times" style={{ color: "red" }}></i>
+                    <i className="fas fa-times" style={{ color: 'red' }} />
                   )}
                 </td>
                 <td>
                   <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
+                      <i className="fas fa-edit" />
                     </Button>
                   </LinkContainer>
                   <Button
@@ -76,7 +76,7 @@ const UserListPage = ({ history }) => {
                     className="btn-sm"
                     onClick={() => deleteHandler(user._id)}
                   >
-                    <i className="fas fa-trash"></i>
+                    <i className="fas fa-trash" />
                   </Button>
                 </td>
               </tr>

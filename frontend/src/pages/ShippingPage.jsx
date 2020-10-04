@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import FormContainer from "../components/FormContainer";
-import CheckoutPage from "../components/CheckoutPage";
-import { saveShippingAddress } from "../actions/cartActions";
+import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import FormContainer from '../components/FormContainer';
+import CheckoutPage from '../components/CheckoutPage';
+import { saveShippingAddress } from '../actions/cartActions';
 
 const ShippingPage = ({ history }) => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector(state => state.cart);
   const { shippingAddress } = cart;
 
   const [address, setAddress] = useState(shippingAddress.address);
@@ -16,10 +16,10 @@ const ShippingPage = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    history.push("/payment");
+    history.push('/payment');
   };
 
   return (
@@ -34,8 +34,8 @@ const ShippingPage = ({ history }) => {
             placeholder="Enter address"
             value={address}
             required
-            onChange={(e) => setAddress(e.target.value)}
-          ></Form.Control>
+            onChange={e => setAddress(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group controlId="city">
@@ -45,8 +45,8 @@ const ShippingPage = ({ history }) => {
             placeholder="Enter city"
             value={city}
             required
-            onChange={(e) => setCity(e.target.value)}
-          ></Form.Control>
+            onChange={e => setCity(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group controlId="postalCode">
@@ -56,8 +56,8 @@ const ShippingPage = ({ history }) => {
             placeholder="Enter postal code"
             value={postalCode}
             required
-            onChange={(e) => setPostalCode(e.target.value)}
-          ></Form.Control>
+            onChange={e => setPostalCode(e.target.value)}
+          />
         </Form.Group>
 
         <Form.Group controlId="country">
@@ -67,8 +67,8 @@ const ShippingPage = ({ history }) => {
             placeholder="Enter country"
             value={country}
             required
-            onChange={(e) => setCountry(e.target.value)}
-          ></Form.Control>
+            onChange={e => setCountry(e.target.value)}
+          />
         </Form.Group>
 
         <Button type="submit" variant="primary">

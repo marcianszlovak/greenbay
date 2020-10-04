@@ -1,32 +1,32 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
-import { listProductDetails, updateProduct } from "../actions/productActions";
-import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import FormContainer from '../components/FormContainer';
+import { listProductDetails, updateProduct } from '../actions/productActions';
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
 
 const ProductEditPage = ({ match, history }) => {
   const productId = match.params.id;
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
+  const [image, setImage] = useState('');
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
   const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
-  const productDetails = useSelector((state) => state.productDetails);
+  const productDetails = useSelector(state => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  const productUpdate = useSelector((state) => state.productUpdate);
+  const productUpdate = useSelector(state => state.productUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
@@ -36,7 +36,7 @@ const ProductEditPage = ({ match, history }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
-      history.push("/admin/productlist");
+      history.push('/admin/productlist');
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(listProductDetails(productId));
@@ -52,20 +52,20 @@ const ProductEditPage = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-  const uploadFileHandler = async (e) => {
+  const uploadFileHandler = async e => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append('image', file);
     setUploading(true);
 
     try {
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       };
 
-      const { data } = await axios.post("/api/upload", formData, config);
+      const { data } = await axios.post('/api/upload', formData, config);
 
       setImage(data);
       setUploading(false);
@@ -75,7 +75,7 @@ const ProductEditPage = ({ match, history }) => {
     }
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     dispatch(
       updateProduct({
@@ -112,7 +112,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="name"
                 placeholder="Enter name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -122,7 +122,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="number"
                 placeholder="Enter price"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={e => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -132,7 +132,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="text"
                 placeholder="Enter image url"
                 value={image}
-                onChange={(e) => setImage(e.target.value)}
+                onChange={e => setImage(e.target.value)}
               ></Form.Control>
               <Form.File
                 id="image-file"
@@ -149,7 +149,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="text"
                 placeholder="Enter brand"
                 value={brand}
-                onChange={(e) => setBrand(e.target.value)}
+                onChange={e => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -159,7 +159,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="number"
                 placeholder="Enter countInStock"
                 value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
+                onChange={e => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -169,7 +169,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="text"
                 placeholder="Enter category"
                 value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={e => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -179,7 +179,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="text"
                 placeholder="Enter description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={e => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

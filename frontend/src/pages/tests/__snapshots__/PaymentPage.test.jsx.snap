@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentPage Component should match the snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="justify-content-md-center row"
+  >
+    <div
+      className="col-md-6 col-12"
+    >
+      <div
+        className="justify-content-center mb-4 nav"
+        onKeyDown={[Function]}
+      >
+        <div
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            data-rb-event-key="/login"
+            href="/login"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Sign In
+          </a>
+        </div>
+        <div
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            data-rb-event-key="/shipping"
+            href="/shipping"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Shipping
+          </a>
+        </div>
+        <div
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            data-rb-event-key="/payment"
+            href="/payment"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+          >
+            Payment
+          </a>
+        </div>
+        <div
+          className="nav-item"
+        >
+          <a
+            aria-disabled={true}
+            className="nav-link disabled"
+            data-rb-event-key={null}
+            href="#"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            Place Order
+          </a>
+        </div>
+      </div>
+      <h1>
+        Payment Method
+      </h1>
+      <form
+        className=""
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group"
+        >
+          <legend
+            className="form-label"
+          >
+            Select Method
+          </legend>
+          <div
+            className="col"
+          >
+            <div
+              className="form-check"
+            >
+              <input
+                checked={true}
+                className="form-check-input"
+                disabled={false}
+                id="PayPal"
+                name="paymentMethod"
+                onChange={[Function]}
+                type="radio"
+                value="PayPal"
+              />
+              <label
+                className="form-check-label"
+                htmlFor="PayPal"
+                title=""
+              >
+                PayPal or Credit Card
+              </label>
+            </div>
+          </div>
+        </div>
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          type="submit"
+        >
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;

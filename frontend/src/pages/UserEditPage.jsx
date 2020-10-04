@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
-import FormContainer from "../components/FormContainer";
-import { getUserDetails, updateUser } from "../actions/userActions";
-import { USER_UPDATE_RESET } from "../constants/userConstants";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import FormContainer from '../components/FormContainer';
+import { getUserDetails, updateUser } from '../actions/userActions';
+import { USER_UPDATE_RESET } from '../constants/userConstants';
 
 const UserEditPage = ({ match, history }) => {
   const userId = match.params.id;
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
+  const userDetails = useSelector(state => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  const userUpdate = useSelector((state) => state.userUpdate);
+  const userUpdate = useSelector(state => state.userUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
@@ -30,7 +30,7 @@ const UserEditPage = ({ match, history }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
-      history.push("/admin/userlist");
+      history.push('/admin/userlist');
     } else {
       if (!user.name || user._id !== userId) {
         dispatch(getUserDetails(userId));
@@ -42,7 +42,7 @@ const UserEditPage = ({ match, history }) => {
     }
   }, [dispatch, history, userId, user, successUpdate]);
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
@@ -68,8 +68,8 @@ const UserEditPage = ({ match, history }) => {
                 type="name"
                 placeholder="Enter name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
+                onChange={e => setName(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="email">
@@ -78,8 +78,8 @@ const UserEditPage = ({ match, history }) => {
                 type="email"
                 placeholder="Enter email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
+                onChange={e => setEmail(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="isadmin">
@@ -87,8 +87,8 @@ const UserEditPage = ({ match, history }) => {
                 type="checkbox"
                 label="Is Admin"
                 checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              ></Form.Check>
+                onChange={e => setIsAdmin(e.target.checked)}
+              />
             </Form.Group>
 
             <Button type="submit" variant="primary">

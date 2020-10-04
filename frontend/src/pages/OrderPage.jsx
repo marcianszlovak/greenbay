@@ -1,39 +1,39 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Button, Card, Col, Image, ListGroup, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
-import Loader from "../components/Loader";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
 import {
   deliverOrder,
   getOrderDetails,
   payOrder,
-} from "../actions/orderActions";
+} from '../actions/orderActions';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from "../constants/orderConstants";
+} from '../constants/orderConstants';
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
 
   const dispatch = useDispatch();
 
-  const orderDetails = useSelector((state) => state.orderDetails);
+  const orderDetails = useSelector(state => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
-  const orderPay = useSelector((state) => state.orderPay);
+  const orderPay = useSelector(state => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
-  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const orderDeliver = useSelector(state => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
   if (!loading) {
     //   Calculate prices
-    const addDecimals = (num) => {
+    const addDecimals = num => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
 
@@ -44,15 +44,15 @@ const OrderPage = ({ match, history }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/login");
+      history.push('/login');
     }
 
     dispatch({ type: ORDER_PAY_RESET });
     dispatch({ type: ORDER_DELIVER_RESET });
     dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successPay, successDeliver, userInfo]);
+  }, [dispatch, orderId, successPay, successDeliver, userInfo, history]);
 
-  const paymentHandler = (paymentResult) => {
+  const paymentHandler = paymentResult => {
     dispatch(payOrder(orderId, paymentResult));
   };
 
@@ -76,13 +76,13 @@ const OrderPage = ({ match, history }) => {
                 <strong>Name: </strong> {order.user.name}
               </p>
               <p>
-                <strong>Email: </strong>{" "}
+                <strong>Email: </strong>{' '}
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
               <p>
                 <strong>Address:</strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
-                {order.shippingAddress.postalCode},{" "}
+                {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
+                {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
