@@ -132,7 +132,7 @@ const ProfilePage = ({ location, history }) => {
         ) : errorOrders ? (
           <Message variant="danger">{errorOrders}</Message>
         ) : (
-          <Table striped bordered hover responsive className="table-sm">
+          <Table striped bordered hover className="table-sm">
             <thead>
               <tr>
                 <th>ID</th>
@@ -165,7 +165,7 @@ const ProfilePage = ({ location, history }) => {
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button className="btn-sm" variant="light">
+                      <Button className="btn-sm" variant="danger">
                         Details
                       </Button>
                     </LinkContainer>
