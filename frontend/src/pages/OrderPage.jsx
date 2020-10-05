@@ -37,7 +37,6 @@ const OrderPage = ({ match, history }) => {
   const { user } = userDetails;
 
   if (!loading) {
-    //   Calculate prices
     const addDecimals = num => {
       return (Math.round(num * 100) / 100).toFixed(2);
     };
@@ -45,6 +44,8 @@ const OrderPage = ({ match, history }) => {
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
+
+    user.money = addDecimals(user.money);
   }
 
   useEffect(() => {
@@ -184,17 +185,18 @@ const OrderPage = ({ match, history }) => {
                 </Row>
               </ListGroup.Item>
               {loadingPay && <Loader />}
-              {user.money > order.totalPrice ? (
+
+              {order.isPaid ? (
                 <ListGroup.Item>
                   <Button
                     type="button"
-                    className="btn btn-block"
-                    onClick={paymentHandler}
+                    disabled
+                    className="btn btn-block alert"
                   >
-                    Pay
+                    Already paid
                   </Button>
                 </ListGroup.Item>
-              ) : (
+              ) : user.money < order.totalPrice ? (
                 <ListGroup.Item>
                   <Button
                     type="button"
@@ -204,7 +206,18 @@ const OrderPage = ({ match, history }) => {
                     Not enough credits
                   </Button>
                 </ListGroup.Item>
+              ) : (
+                <ListGroup.Item>
+                  <Button
+                    type="button"
+                    className="btn btn-block"
+                    onClick={paymentHandler}
+                  >
+                    Pay
+                  </Button>
+                </ListGroup.Item>
               )}
+
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&

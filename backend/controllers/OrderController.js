@@ -55,7 +55,7 @@ export default class OrderController {
     const order = await Order.findById(req.params.id);
     const user = await User.findById(req.user.id);
 
-    if (order && order.totalPrice < user.money) {
+    if (order && user && order.totalPrice < user.money) {
       order.isPaid = true;
       order.paidAt = Date.now();
       order.paymentResult = {
@@ -65,9 +65,14 @@ export default class OrderController {
         email_address: req.body.email_address,
       };
 
-      const updatedOrder = await order.save();
+      user.money -= order.totalPrice;
 
-      res.json(updatedOrder);
+      const updatedOrder = await order.save();
+      const updatedUser = await user.save();
+
+      if (order.isPaid) {
+        res.json({ order: updatedOrder, user: updatedUser });
+      }
     } else {
       res.status(404);
       throw new Error('Order not found');
