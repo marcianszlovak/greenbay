@@ -7,12 +7,14 @@ import Loader from '../components/Loader';
 import {
   deliverOrder,
   getOrderDetails,
+  listMyOrders,
   payOrder,
 } from '../actions/orderActions';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
 } from '../constants/orderConstants';
+import { getUserDetails } from '../actions/userActions';
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
@@ -30,6 +32,9 @@ const OrderPage = ({ match, history }) => {
 
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
+
+  const userDetails = useSelector(state => state.userDetails);
+  const { user } = userDetails;
 
   if (!loading) {
     //   Calculate prices
@@ -49,6 +54,8 @@ const OrderPage = ({ match, history }) => {
 
     dispatch({ type: ORDER_PAY_RESET });
     dispatch({ type: ORDER_DELIVER_RESET });
+    dispatch(getUserDetails('profile'));
+    dispatch(listMyOrders());
     dispatch(getOrderDetails(orderId));
   }, [dispatch, orderId, successPay, successDeliver, userInfo, history]);
 
@@ -149,7 +156,7 @@ const OrderPage = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>greenBay credits</Col>
-                  <Col>${userInfo.money}</Col>
+                  <Col>${user.money}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -177,7 +184,7 @@ const OrderPage = ({ match, history }) => {
                 </Row>
               </ListGroup.Item>
               {loadingPay && <Loader />}
-              {userInfo.money > order.totalPrice ? (
+              {user.money > order.totalPrice ? (
                 <ListGroup.Item>
                   <Button
                     type="button"
@@ -193,7 +200,6 @@ const OrderPage = ({ match, history }) => {
                     type="button"
                     disabled
                     className="btn btn-block alert"
-                    onClick={paymentHandler}
                   >
                     Not enough credits
                   </Button>

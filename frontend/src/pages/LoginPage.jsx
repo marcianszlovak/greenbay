@@ -42,7 +42,7 @@ const LoginPage = ({ location, history }) => {
             placeholder="Enter email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
 
         <Form.Group controlId="password">
@@ -52,7 +52,7 @@ const LoginPage = ({ location, history }) => {
             placeholder="Enter password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
 
         <Button type="submit" variant="primary">

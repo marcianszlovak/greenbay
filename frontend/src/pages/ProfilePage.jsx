@@ -91,7 +91,7 @@ const ProfilePage = ({ location, history }) => {
           </Form.Group>
 
           <Form.Group controlId="money">
-            <Form.Label>Money Amount</Form.Label>
+            <Form.Label>Money</Form.Label>
             <Form.Control
               type="number"
               placeholder="Enter money amount"

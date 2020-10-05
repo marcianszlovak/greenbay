@@ -6,6 +6,8 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
 import { listProducts } from '../actions/productActions';
+import { getUserDetails } from '../actions/userActions';
+import { listMyOrders } from '../actions/orderActions';
 
 const HomePage = ({ match }) => {
   const keyword = match.params.keyword;
@@ -17,9 +19,14 @@ const HomePage = ({ match }) => {
   const productList = useSelector(state => state.productList);
   const { loading, error, products, page, pages } = productList;
 
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    dispatch(getUserDetails('profile'));
+    dispatch(listMyOrders());
     dispatch(listProducts(keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber]);
+  }, [dispatch, keyword, pageNumber, userInfo]);
 
   return (
     <>
