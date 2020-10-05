@@ -57,7 +57,7 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
           className="form-label"
           htmlFor="money"
         >
-          Money Amount
+          Money
         </label>
         <input
           className="form-control"
