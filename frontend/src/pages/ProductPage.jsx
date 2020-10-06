@@ -99,6 +99,14 @@ const ProductPage = ({ history, match }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
+                      <Col>Seller:</Col>
+                      <Col>
+                        <strong>{product.seller}</strong>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
                       <Col>Price:</Col>
                       <Col>
                         <strong>{product.price}</strong>

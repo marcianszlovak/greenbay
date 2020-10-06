@@ -1,10 +1,13 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
+import User from '../models/userModel.js';
 
 export default class ProductController {
   constructor() {}
 
   getProducts = asyncHandler(async (req, res) => {
+    // const user = await User.findById(req)
+    console.log(req.query);
     const pageSize = 10;
     const page = Number(req.query.pageNumber) || 1;
 
@@ -53,6 +56,7 @@ export default class ProductController {
       name: 'Sample name',
       price: 0,
       user: req.user._id,
+      seller: req.user.name,
       image: '/images/sample.jpg',
       brand: 'Sample brand',
       category: 'Sample category',

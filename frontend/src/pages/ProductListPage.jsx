@@ -38,10 +38,18 @@ const ProductListPage = ({ history, match }) => {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
+  // const userDetails = useSelector(state => state.userDetails);
+  // const { user } = userDetails;
+  //
+  // const userId = products.map(product => product.user);
+  // const productId = products.map(product => product._id);
+  // console.log(`user ID:  ${user._id}`);
+  // console.log(`product user id:  ${userId}`);
+
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
 
-    if (!userInfo || !userInfo.isAdmin) {
+    if (!userInfo) {
       history.push('/login');
     }
 
@@ -74,11 +82,15 @@ const ProductListPage = ({ history, match }) => {
     <>
       <Row className="align-items-center">
         <Col>
-          <h1>Products</h1>
+          <h1>My items</h1>
         </Col>
         <Col className="text-right">
-          <Button className="my-3" onClick={createProductHandler}>
-            <i className="fas fa-plus" /> Create Product
+          <Button
+            className="my-3"
+            onClick={createProductHandler}
+            variant="success"
+          >
+            <i className="fas fa-plus" /> SELL ITEM
           </Button>
         </Col>
       </Row>
@@ -96,6 +108,7 @@ const ProductListPage = ({ history, match }) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>USER ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
@@ -105,8 +118,10 @@ const ProductListPage = ({ history, match }) => {
             </thead>
             <tbody>
               {products.map(product => (
+                //if product.user === product.user.id
                 <tr key={product._id}>
                   <td>{product._id}</td>
+                  <td>{product.user}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
                   <td>{product.category}</td>
