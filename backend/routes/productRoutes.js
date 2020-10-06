@@ -8,17 +8,17 @@ const router = express.Router();
 const productController = container.resolve('productController');
 
 router
-    .route('/')
-    .get(productController.getProducts)
-    .post(protect, admin, productController.createProduct);
+  .route('/')
+  .get(productController.getProducts)
+  .post(protect, productController.createProduct);
 router
-    .route('/:id/reviews')
-    .post(protect, productController.createProductReview);
+  .route('/:id/reviews')
+  .post(protect, productController.createProductReview);
 router.get('/top', productController.getTopProducts);
 router
-    .route('/:id')
-    .get(productController.getProductById)
-    .delete(protect, admin, productController.deleteProduct)
-    .put(protect, admin, productController.updateProduct);
+  .route('/:id')
+  .get(productController.getProductById)
+  .delete(protect, productController.deleteProduct)
+  .put(protect, productController.updateProduct);
 
 export default router;
