@@ -55,7 +55,7 @@ const LoginPage = ({ location, history }) => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="success">
           Sign In
         </Button>
       </Form>

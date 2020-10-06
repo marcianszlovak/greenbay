@@ -24,47 +24,24 @@ h2 {
   background-color: yellowgreen;
 }
 
-#search-box-btn {
-  color: black;
-}
-
-#search-box-btn:hover {
-  color: white;
-}
-
-#shop-brand {
-  color: black;
-}
-
 #shop-brand:hover {
   color: white;
   background-color: #4bbf73;
 }
 
-/*#product {*/
-/*  background-color: yellowgreen;*/
-/*}*/
-
-#username {
+#username,
+#cart,
+#admin-menu,
+#sign-in-menu,
+#search-box-btn,
+#shop-brand {
   color: black;
 }
 
-#username:hover {
-  color: white;
-}
-
-#cart {
-  color: black;
-}
-
-#cart:hover {
-  color: white;
-}
-
-#admin-menu {
-  color: black;
-}
-
-#admin-menu:hover {
+#username:hover,
+#cart:hover,
+#admin-menu:hover,
+#sign-in-menu:hover,
+#search-box-btn:hover {
   color: white;
 }
