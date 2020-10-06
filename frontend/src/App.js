@@ -38,7 +38,7 @@ const App = () => {
           <Route path="/admin/user/:id/edit" component={UserEditPage} />
           <Route path="/productlist" component={ProductListPage} exact />
           <Route
-            path="/admin/productlist/:pageNumber"
+            path="/productlist/:pageNumber"
             component={ProductListPage}
             exact
           />
