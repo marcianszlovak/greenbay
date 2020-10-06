@@ -61,6 +61,8 @@ export default class ProductController {
       description: 'Sample description',
     });
 
+    console.log(req.user);
+
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   });

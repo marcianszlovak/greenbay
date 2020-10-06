@@ -46,7 +46,7 @@ const ProductEditPage = ({ match, history }) => {
         setImage(product.image);
         setBrand(product.brand);
         setCategory(product.category);
-        setCountInStock(product.countInSock);
+        setCountInStock(product.countInStock);
         setDescription(product.description);
       }
     }
@@ -113,7 +113,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="price">
@@ -123,7 +123,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter price"
                 value={price}
                 onChange={e => setPrice(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="image">
@@ -133,13 +133,13 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter image url"
                 value={image}
                 onChange={e => setImage(e.target.value)}
-              ></Form.Control>
+              />
               <Form.File
                 id="image-file"
                 label="Choose File"
                 custom
                 onChange={uploadFileHandler}
-              ></Form.File>
+              />
               {uploading && <Loader />}
             </Form.Group>
 
@@ -150,7 +150,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter brand"
                 value={brand}
                 onChange={e => setBrand(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="countInStock">
@@ -160,7 +160,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter countInStock"
                 value={countInStock}
                 onChange={e => setCountInStock(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="category">
@@ -170,7 +170,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter category"
                 value={category}
                 onChange={e => setCategory(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="description">
@@ -180,7 +180,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter description"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Button type="submit" variant="primary">
