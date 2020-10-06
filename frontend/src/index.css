@@ -46,19 +46,22 @@ h2 {
   color: white;
 }
 
+.page-item {
+  padding: 1px;
+}
+
 .page-item.active .page-link {
   background-color: #4bbf73;
   color: black;
-  border-radius: 2px;
+  border-radius: 7px;
 }
 
 .page-item.active .page-link:hover {
   background-color: #4bbf73;
-  border-radius: 2px;
 }
 
 .page-link:hover {
   background-color: greenyellow;
   border-color: black;
-  border-radius: 2px;
+  border-radius: 7px;
 }
