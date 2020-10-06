@@ -149,6 +149,7 @@ const ProductPage = ({ history, match }) => {
                       onClick={addToCartHandler}
                       className="btn-block"
                       type="button"
+                      variant="success"
                       disabled={product.countInStock === 0}
                     >
                       Add To Cart

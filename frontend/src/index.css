@@ -45,3 +45,20 @@ h2 {
 #search-box-btn:hover {
   color: white;
 }
+
+.page-item.active .page-link {
+  background-color: #4bbf73;
+  color: black;
+  border-radius: 2px;
+}
+
+.page-item.active .page-link:hover {
+  background-color: #4bbf73;
+  border-radius: 2px;
+}
+
+.page-link:hover {
+  background-color: greenyellow;
+  border-color: black;
+  border-radius: 2px;
+}
