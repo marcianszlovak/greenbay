@@ -82,7 +82,7 @@ const ProductListPage = ({ history, match }) => {
     <>
       <Row className="align-items-center">
         <Col>
-          <h1>My items</h1>
+          <h1>My products</h1>
         </Col>
         <Col className="text-right">
           <Button
@@ -90,7 +90,7 @@ const ProductListPage = ({ history, match }) => {
             onClick={createProductHandler}
             variant="success"
           >
-            <i className="fas fa-plus" /> SELL ITEM
+            <i className="fas fa-plus" /> SELL PRODUCT
           </Button>
         </Col>
       </Row>

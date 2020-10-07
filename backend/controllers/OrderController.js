@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
+import Product from '../models/productModel.js';
+import mongoose from 'mongoose';
 
 export default class OrderController {
   constructor() {}
@@ -81,6 +83,26 @@ export default class OrderController {
 
   updateOrderToDelivered = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
+    const productsIdAndQty = req.body.map(product => ({
+      id: product.product,
+      qty: product.qty,
+    }));
+
+    console.log(productsIdAndQty);
+
+    for (const value of Object.values(productsIdAndQty)) {
+      const product = await Product.find({
+        _id: value.id,
+      });
+
+      const countInStock = product.map(c => c.countInStock);
+      // TODO implement: countInStock - incoming quantity
+      const qty = productsIdAndQty.map(q => q.qty);
+
+      console.log(product);
+      console.log('countInStock:', countInStock);
+      console.log('Quantity:', qty);
+    }
 
     if (order) {
       order.isDelivered = true;

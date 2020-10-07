@@ -106,6 +106,7 @@ const CartPage = ({ match, location, history }) => {
               <Button
                 type="button"
                 className="btn-block"
+                variant="success"
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >
