@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
-import User from '../models/userModel.js';
 
 export default class ProductController {
   constructor() {}
