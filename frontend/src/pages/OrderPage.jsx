@@ -140,7 +140,6 @@ const OrderPage = ({ match, history }) => {
                         <Col md={4}>
                           {item.qty} x ${item.price} = ${item.qty * item.price}
                         </Col>
-                        <Col md={4}>{item._id}</Col>
                       </Row>
                     </ListGroup.Item>
                   ))}

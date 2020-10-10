@@ -11,7 +11,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import Message from '../components/Message';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import { addToCart, emptyCart, removeFromCart } from '../actions/cartActions';
 
 const CartPage = ({ match, location, history }) => {
   const productId = match.params.id;
@@ -31,6 +31,13 @@ const CartPage = ({ match, location, history }) => {
 
   const removeFromCartHandler = id => {
     dispatch(removeFromCart(id));
+    console.log(cartItems);
+  };
+
+  const temp = () => {
+    if (productId) {
+      dispatch(emptyCart(cartItems));
+    }
   };
 
   const checkoutHandler = () => {
@@ -41,17 +48,18 @@ const CartPage = ({ match, location, history }) => {
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
+        <button onClick={temp} />
         {cartItems.length === 0 ? (
           <Message>
             Your cart is empty <Link to="/">Go Back</Link>
           </Message>
         ) : (
-          <ListGroup variant="flush">
+          <ListGroup>
             {cartItems.map(item => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
-                    <Image src={item.image} alt={item.name} fluid rounded />
+                    <Image src={item.image} alt={item.name} rounded fluid />
                   </Col>
                   <Col md={3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -60,6 +68,7 @@ const CartPage = ({ match, location, history }) => {
                   <Col md={2}>
                     <Form.Control
                       as="select"
+                      className="custom-select custom-select-m"
                       value={item.qty}
                       onChange={e =>
                         dispatch(
@@ -74,13 +83,13 @@ const CartPage = ({ match, location, history }) => {
                       ))}
                     </Form.Control>
                   </Col>
-                  <Col md={2}>
+                  <Col md={3} className="text-right">
                     <Button
                       type="button"
-                      variant="light"
+                      variant="danger"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      <i className="fas fa-trash"></i>
+                      <i className="fas fa-trash" />
                     </Button>
                   </Col>
                 </Row>

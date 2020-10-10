@@ -64,7 +64,7 @@ const ProductPage = ({ history, match }) => {
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
+      <Link className="btn btn-danger my-3" to="/">
         Go Back
       </Link>
       {loading ? (
@@ -132,6 +132,7 @@ const ProductPage = ({ history, match }) => {
                             as="select"
                             value={qty}
                             onChange={e => setQty(e.target.value)}
+                            className="custom-select custom-select-m"
                           >
                             {[...Array(product.countInStock).keys()].map(x => (
                               <option key={x + 1} value={x + 1}>
@@ -185,6 +186,7 @@ const ProductPage = ({ history, match }) => {
                           as="select"
                           value={rating}
                           onChange={e => setRating(e.target.value)}
+                          className="custom-select custom-select-m"
                         >
                           <option value="">Select...</option>
                           <option value="1">1 - Poor</option>
@@ -203,7 +205,7 @@ const ProductPage = ({ history, match }) => {
                           onChange={e => setComment(e.target.value)}
                         />
                       </Form.Group>
-                      <Button type="submit" variant="primary">
+                      <Button type="submit" variant="success">
                         Submit
                       </Button>
                     </Form>
