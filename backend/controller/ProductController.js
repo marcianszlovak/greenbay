@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Product from '../models/productModel.js';
+import Product from '../model/productModel.js';
 
 export default class ProductController {
   constructor() {}
@@ -63,8 +63,6 @@ export default class ProductController {
       numReviews: 0,
       description: 'Sample description',
     });
-
-    console.log(req.user);
 
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);

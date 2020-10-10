@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
-import Order from '../models/orderModel.js';
-import User from '../models/userModel.js';
-import Product from '../models/productModel.js';
+import Order from '../model/orderModel.js';
+import User from '../model/userModel.js';
+import Product from '../model/productModel.js';
 
 export default class OrderController {
   constructor() {}
@@ -68,6 +68,20 @@ export default class OrderController {
 
       user.money -= order.totalPrice;
 
+      const userIdAmountMap = new Map();
+
+      order.orderItems.map(item => {
+        console.log(item);
+        userIdAmountMap.set(item.user, item.qty * item.price);
+      });
+      console.log(userIdAmountMap);
+
+      for (const [userId, amount] of userIdAmountMap) {
+        const user = await User.findById(userId);
+        user.money += amount;
+        await user.save();
+      }
+
       const updatedOrder = await order.save();
       const updatedUser = await user.save();
 
@@ -82,21 +96,18 @@ export default class OrderController {
 
   updateOrderToDelivered = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
-    console.log('ORDER: ', order);
-    const productsId = order.orderItems.map(item => item.product);
-    const productsQty = order.orderItems.map(item => item.qty);
-    const product = await Product.find({ _id: productsId });
+    const productIdQtyMap = new Map();
 
-    console.log('PRODUCT ID: ', productsId);
-    console.log('PRODUCT QUANTITY: ', productsQty);
+    order.orderItems.map(item => {
+      productIdQtyMap.set(item.product, item.qty);
+    });
 
-    console.log('PRODUCT: ', product);
-
-    for (const value of Object.values(product)) {
-      console.log(value.countInStock);
+    for (const [product, qty] of productIdQtyMap) {
+      const products = await Product.find({ _id: { $in: product } });
+      const foundProduct = products[0];
+      foundProduct.countInStock -= qty;
+      await foundProduct.save();
     }
-
-    //TODO: - countInStock - productsQty
 
     if (order) {
       order.isDelivered = true;
