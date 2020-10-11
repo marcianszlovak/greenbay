@@ -9,12 +9,13 @@ import {
   getOrderDetails,
   listMyOrders,
   payOrder,
-} from '../actions/orderActions';
+} from '../redux/actions/orderActions';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from '../constants/orderConstants';
-import { getUserDetails } from '../actions/userActions';
+} from '../redux/constants/orderConstants';
+import { getUserDetails } from '../redux/actions/userActions';
+import { emptyCart } from '../redux/actions/cartActions';
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
@@ -62,6 +63,7 @@ const OrderPage = ({ match, history }) => {
 
   const paymentHandler = paymentResult => {
     dispatch(payOrder(orderId, paymentResult));
+    dispatch(emptyCart());
   };
 
   const deliverHandler = () => {

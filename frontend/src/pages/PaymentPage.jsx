@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Col, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import FormContainer from '../components/FormContainer';
 import CheckoutPage from '../components/CheckoutPage';
-import { savePaymentMethod } from '../actions/cartActions';
+import { savePaymentMethod } from '../redux/actions/cartActions';
 
-const PaymentPage = ({ history }) => {
+const PaymentPage = ({ history, initialValues, onSubmit }) => {
   const cart = useSelector(state => state.cart);
   const { shippingAddress } = cart;
 
@@ -13,12 +13,12 @@ const PaymentPage = ({ history }) => {
     history.push('/shipping');
   }
 
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState('PayGreen');
 
   const dispatch = useDispatch();
 
   const submitHandler = e => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeorder');
   };
@@ -30,17 +30,20 @@ const PaymentPage = ({ history }) => {
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>
-          <Col>
-            <Form.Check
-              type="radio"
-              label="PayPal or Credit Card"
-              id="PayPal"
-              name="paymentMethod"
-              value="PayPal"
-              checked
-              onChange={e => setPaymentMethod(e.target.value)}
-            />
-          </Col>
+          <Form.Check
+            type="radio"
+            label="PayGreen"
+            checked={paymentMethod === 'PayGreen'}
+            value="PayGreen"
+            onChange={e => setPaymentMethod(e.target.value)}
+          />
+          <Form.Check
+            type="radio"
+            label="FoxCard"
+            checked={paymentMethod === 'FoxCard'}
+            value="FoxCard"
+            onChange={e => setPaymentMethod(e.target.value)}
+          />
         </Form.Group>
 
         <Button type="submit" variant="success">

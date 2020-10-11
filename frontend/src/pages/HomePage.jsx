@@ -5,9 +5,9 @@ import Product from '../components/Product';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
-import { listProducts } from '../actions/productActions';
-import { getUserDetails } from '../actions/userActions';
-import { listMyOrders } from '../actions/orderActions';
+import { listProducts } from '../redux/actions/productActions';
+import { getUserDetails } from '../redux/actions/userActions';
+import { listMyOrders } from '../redux/actions/orderActions';
 
 const HomePage = ({ match }) => {
   const keyword = match.params.keyword;

@@ -9,8 +9,8 @@ import {
   createProduct,
   deleteProduct,
   listProducts,
-} from '../actions/productActions';
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+} from '../redux/actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../redux/constants/productConstants';
 
 const ProductListPage = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;

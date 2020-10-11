@@ -4,7 +4,7 @@ import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { deleteUser, listUsers } from '../actions/userActions';
+import { deleteUser, listUsers } from '../redux/actions/userActions';
 
 const UserListPage = ({ history }) => {
   const dispatch = useDispatch();

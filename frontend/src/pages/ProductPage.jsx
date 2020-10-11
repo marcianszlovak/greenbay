@@ -16,8 +16,8 @@ import Loader from '../components/Loader';
 import {
   createProductReview,
   listProductDetails,
-} from '../actions/productActions';
-import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
+} from '../redux/actions/productActions';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productConstants';
 
 const ProductPage = ({ history, match }) => {
   const [qty, setQty] = useState(1);

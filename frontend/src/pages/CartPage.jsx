@@ -11,7 +11,7 @@ import {
   Row,
 } from 'react-bootstrap';
 import Message from '../components/Message';
-import { addToCart, emptyCart, removeFromCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 
 const CartPage = ({ match, location, history }) => {
   const productId = match.params.id;
@@ -34,12 +34,6 @@ const CartPage = ({ match, location, history }) => {
     console.log(cartItems);
   };
 
-  const temp = () => {
-    if (productId) {
-      dispatch(emptyCart(cartItems));
-    }
-  };
-
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
   };
@@ -48,7 +42,6 @@ const CartPage = ({ match, location, history }) => {
     <Row>
       <Col md={8}>
         <h1>Shopping Cart</h1>
-        <button onClick={temp} />
         {cartItems.length === 0 ? (
           <Message>
             Your cart is empty <Link to="/">Go Back</Link>

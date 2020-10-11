@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import LoginPage from '../LoginPage';
-import store from '../../store';
+import store from '../../redux/store';
 
 describe('LoginPage Component', () => {
   const MockLoginPage = (
