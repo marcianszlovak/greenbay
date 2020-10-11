@@ -140,7 +140,8 @@ const OrderPage = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x {item.price} = {item.qty * item.price}{' '}
+                          credits
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -159,31 +160,31 @@ const OrderPage = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>greenBay credits</Col>
-                  <Col>${user.money}</Col>
+                  <Col>{user.money} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${order.itemsPrice}</Col>
+                  <Col>{order.itemsPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${order.shippingPrice}</Col>
+                  <Col>{order.shippingPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${order.taxPrice}</Col>
+                  <Col>{order.taxPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${order.totalPrice}</Col>
+                  <Col>{order.totalPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               {loadingPay && <Loader />}

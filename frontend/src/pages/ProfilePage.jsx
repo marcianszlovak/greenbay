@@ -93,27 +93,6 @@ const ProfilePage = ({ location, history }) => {
             />
           </Form.Group>
 
-          {userInfo && userInfo.isAdmin ? (
-            <Form.Group controlId="money">
-              <Form.Label>Money</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter money amount"
-                value={money}
-                onChange={e => setMoney(e.target.value)}
-              />
-            </Form.Group>
-          ) : (
-            <Form.Group controlId="money">
-              <Form.Label>Money</Form.Label>
-              <Form.Control
-                placeholder="Enter money amount"
-                value={money}
-                disabled
-              />
-            </Form.Group>
-          )}
-
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -134,9 +113,23 @@ const ProfilePage = ({ location, history }) => {
             />
           </Form.Group>
 
+          {userInfo && userInfo.isAdmin ? (
+            <Form.Group controlId="money">
+              <Form.Label>Set Credits</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter credit amount"
+                value={money}
+                onChange={e => setMoney(e.target.value)}
+              />
+            </Form.Group>
+          ) : null}
+
           <Button type="submit" variant="success">
             Update
           </Button>
+
+          {userInfo ? <h2 className="mt-2">MY CREDITS: {money}</h2> : null}
         </Form>
       </Col>
       <Col md={9}>

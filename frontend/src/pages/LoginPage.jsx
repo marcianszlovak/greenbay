@@ -4,7 +4,6 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
 import { login } from '../redux/actions/userActions';
 
 const LoginPage = ({ location, history }) => {
@@ -30,7 +29,7 @@ const LoginPage = ({ location, history }) => {
   };
 
   return (
-    <FormContainer>
+    <Form className="justify-content-center align-items-center container w-25 bg-light">
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
@@ -68,7 +67,7 @@ const LoginPage = ({ location, history }) => {
           </Link>
         </Col>
       </Row>
-    </FormContainer>
+    </Form>
   );
 };
 
