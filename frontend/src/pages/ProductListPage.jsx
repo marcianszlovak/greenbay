@@ -38,14 +38,6 @@ const ProductListPage = ({ history, match }) => {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const userDetails = useSelector(state => state.userDetails);
-  // const { user } = userDetails;
-  //
-  // const userId = products.map(product => product.user);
-  // const productId = products.map(product => product._id);
-  // console.log(`user ID:  ${user._id}`);
-  // console.log(`product user id:  ${userId}`);
-
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
 
@@ -80,20 +72,22 @@ const ProductListPage = ({ history, match }) => {
 
   return (
     <>
-      <Row className="align-items-center">
-        <Col>
-          <h1>My items</h1>
-        </Col>
-        <Col className="text-right">
-          <Button
-            className="my-3"
-            onClick={createProductHandler}
-            variant="success"
-          >
-            <i className="fas fa-plus" /> SELL ITEM
-          </Button>
-        </Col>
-      </Row>
+      <div className="w-75 m-auto">
+        <Row>
+          <Col>
+            <h1>My products</h1>
+          </Col>
+          <Col className="text-right">
+            <Button
+              className="my-3"
+              onClick={createProductHandler}
+              variant="success"
+            >
+              <i className="fas fa-plus" /> SELL PRODUCT
+            </Button>
+          </Col>
+        </Row>
+      </div>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
@@ -104,11 +98,17 @@ const ProductListPage = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
-          <Table striped bordered hover responsive className="table-sm">
+          <Table
+            striped
+            bordered
+            hover
+            responsive
+            className="table-sm w-75 m-auto"
+          >
             <thead>
               <tr>
-                <th>ID</th>
-                <th>USER ID</th>
+                <th>PRODUCT ID</th>
+                <th>SELLER ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
@@ -118,7 +118,6 @@ const ProductListPage = ({ history, match }) => {
             </thead>
             <tbody>
               {products.map(product => (
-                //if product.user === product.user.id
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.user}</td>
@@ -126,9 +125,9 @@ const ProductListPage = ({ history, match }) => {
                   <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-                  <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant="light" className="btn-sm">
+                  <td className="text-center pl-0 pr-0 mt-0">
+                    <LinkContainer to={`/product/${product._id}/edit`}>
+                      <Button variant="success" className="btn-sm">
                         <i className="fas fa-edit" />
                       </Button>
                     </LinkContainer>

@@ -143,6 +143,7 @@ const PlaceOrderPage = ({ history }) => {
                 <Button
                   type="button"
                   className="btn-block"
+                  variant="success"
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >

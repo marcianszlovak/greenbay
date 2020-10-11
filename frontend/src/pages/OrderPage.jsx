@@ -211,6 +211,7 @@ const OrderPage = ({ match, history }) => {
                   <Button
                     type="button"
                     className="btn btn-block"
+                    variant="success"
                     onClick={paymentHandler}
                   >
                     Pay
@@ -227,6 +228,7 @@ const OrderPage = ({ match, history }) => {
                     <Button
                       type="button"
                       className="btn btn-block"
+                      variant="success"
                       onClick={deliverHandler}
                     >
                       Mark As Delivered

@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
-import Order from '../models/orderModel.js';
-import User from '../models/userModel.js';
+import Order from '../model/orderModel.js';
+import User from '../model/userModel.js';
+import Product from '../model/productModel.js';
 
 export default class OrderController {
   constructor() {}
@@ -67,6 +68,20 @@ export default class OrderController {
 
       user.money -= order.totalPrice;
 
+      const userIdAmountMap = new Map();
+
+      order.orderItems.map(item => {
+        console.log(item);
+        userIdAmountMap.set(item.user, item.qty * item.price);
+      });
+      console.log(userIdAmountMap);
+
+      for (const [userId, amount] of userIdAmountMap) {
+        const user = await User.findById(userId);
+        user.money += amount;
+        await user.save();
+      }
+
       const updatedOrder = await order.save();
       const updatedUser = await user.save();
 
@@ -81,6 +96,18 @@ export default class OrderController {
 
   updateOrderToDelivered = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
+    const productIdQtyMap = new Map();
+
+    order.orderItems.map(item => {
+      productIdQtyMap.set(item.product, item.qty);
+    });
+
+    for (const [product, qty] of productIdQtyMap) {
+      const products = await Product.find({ _id: { $in: product } });
+      const foundProduct = products[0];
+      foundProduct.countInStock -= qty;
+      await foundProduct.save();
+    }
 
     if (order) {
       order.isDelivered = true;
