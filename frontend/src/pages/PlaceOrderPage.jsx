@@ -56,7 +56,7 @@ const PlaceOrderPage = ({ history }) => {
       <CheckoutPage step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
-          <ListGroup variant="flush">
+          <ListGroup>
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
@@ -78,7 +78,7 @@ const PlaceOrderPage = ({ history }) => {
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
-                <ListGroup variant="flush">
+                <ListGroup>
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -88,6 +88,7 @@ const PlaceOrderPage = ({ history }) => {
                             alt={item.name}
                             fluid
                             rounded
+                            id="order-image"
                           />
                         </Col>
                         <Col>
@@ -137,9 +138,11 @@ const PlaceOrderPage = ({ history }) => {
                   <Col>{cart.totalPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message>}
-              </ListGroup.Item>
+              {error ? (
+                <ListGroup.Item>
+                  <Message variant="danger">{error}</Message>}
+                </ListGroup.Item>
+              ) : null}
               <ListGroup.Item>
                 <Button
                   type="button"

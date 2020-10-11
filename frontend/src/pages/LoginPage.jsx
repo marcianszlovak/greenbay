@@ -29,7 +29,7 @@ const LoginPage = ({ location, history }) => {
   };
 
   return (
-    <Form className="justify-content-center align-items-center container w-25 bg-light">
+    <div className="justify-content-center align-items-center container bg-light p-4">
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
@@ -61,13 +61,13 @@ const LoginPage = ({ location, history }) => {
 
       <Row className="py-3">
         <Col>
-          New Customer?{' '}
+          Don't have an account?{' '}
           <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
+            Sign up
           </Link>
         </Col>
       </Row>
-    </Form>
+    </div>
   );
 };
 

@@ -16,6 +16,7 @@ import {
 } from '../redux/constants/orderConstants';
 import { getUserDetails } from '../redux/actions/userActions';
 import { emptyCart } from '../redux/actions/cartActions';
+import moment from 'moment';
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
@@ -37,17 +38,17 @@ const OrderPage = ({ match, history }) => {
   const userDetails = useSelector(state => state.userDetails);
   const { user } = userDetails;
 
-  if (!loading) {
-    const addDecimals = num => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
-
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
-
-    user.money = addDecimals(user.money);
-  }
+  // if (!loading) {
+  //   const addDecimals = num => {
+  //     return (Math.round(num * 100) / 100).toFixed(2);
+  //   };
+  //
+  //   order.itemsPrice = addDecimals(
+  //     order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  //   );
+  //
+  //   user.money = addDecimals(user.money);
+  // }
 
   useEffect(() => {
     if (!userInfo) {
@@ -79,7 +80,7 @@ const OrderPage = ({ match, history }) => {
       <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>
-          <ListGroup variant="flush">
+          <ListGroup>
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
@@ -97,7 +98,8 @@ const OrderPage = ({ match, history }) => {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {order.deliveredAt}
+                  Delivered on{' '}
+                  {moment(order.deliveredAt).format('YYYY/MM/D [at] hh:mm:ss')}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
@@ -111,7 +113,10 @@ const OrderPage = ({ match, history }) => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">
+                  Paid on{' '}
+                  {moment(order.paidAt).format('YYYY/MM/D [at] hh:mm:ss')}
+                </Message>
               ) : (
                 <Message variant="danger">Not Paid</Message>
               )}
@@ -122,7 +127,7 @@ const OrderPage = ({ match, history }) => {
               {order.orderItems.length === 0 ? (
                 <Message>Order is empty</Message>
               ) : (
-                <ListGroup variant="flush">
+                <ListGroup>
                   {order.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -132,6 +137,7 @@ const OrderPage = ({ match, history }) => {
                             alt={item.name}
                             fluid
                             rounded
+                            id="order-image"
                           />
                         </Col>
                         <Col>
@@ -159,7 +165,7 @@ const OrderPage = ({ match, history }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>greenBay credits</Col>
+                  <Col>Available Credits</Col>
                   <Col>{user.money} credits</Col>
                 </Row>
               </ListGroup.Item>

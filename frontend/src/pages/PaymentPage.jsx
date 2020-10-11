@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import FormContainer from '../components/FormContainer';
 import CheckoutPage from '../components/CheckoutPage';
 import { savePaymentMethod } from '../redux/actions/cartActions';
 
@@ -24,33 +23,36 @@ const PaymentPage = ({ history, initialValues, onSubmit }) => {
   };
 
   return (
-    <FormContainer>
+    <>
       <CheckoutPage step1 step2 step3 />
-      <h1>Payment Method</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label>Select Method</Form.Label>
-          <Form.Check
-            type="radio"
-            label="PayGreen"
-            checked={paymentMethod === 'PayGreen'}
-            value="PayGreen"
-            onChange={e => setPaymentMethod(e.target.value)}
-          />
-          <Form.Check
-            type="radio"
-            label="FoxCard"
-            checked={paymentMethod === 'FoxCard'}
-            value="FoxCard"
-            onChange={e => setPaymentMethod(e.target.value)}
-          />
-        </Form.Group>
+      <Form className="justify-content-center align-items-center container bg-light p-3">
+        <h1 className="pl-3">Payment Method</h1>
+        <Form onSubmit={submitHandler} className="pr-3 pl-3">
+          <Form.Group>
+            <Form.Label>Select Method</Form.Label>
+            <Form.Check
+              type="radio"
+              label="PayGreen"
+              checked={paymentMethod === 'PayGreen'}
+              value="PayGreen"
+              onChange={e => setPaymentMethod(e.target.value)}
+              className="mb-1"
+            />
+            <Form.Check
+              type="radio"
+              label="FoxCard"
+              checked={paymentMethod === 'FoxCard'}
+              value="FoxCard"
+              onChange={e => setPaymentMethod(e.target.value)}
+            />
+          </Form.Group>
 
-        <Button type="submit" variant="success">
-          Continue
-        </Button>
+          <Button type="submit" variant="success" className="mb-2">
+            Continue
+          </Button>
+        </Form>
       </Form>
-    </FormContainer>
+    </>
   );
 };
 

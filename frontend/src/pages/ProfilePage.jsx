@@ -72,7 +72,7 @@ const ProfilePage = ({ location, history }) => {
         {error && <Message variant="danger">{error}</Message>}
         {success && <Message variant="success">Profile Updated</Message>}
         {loading && <Loader />}
-        <Form onSubmit={submitHandler}>
+        <Form onSubmit={submitHandler} className="bg-light p-3">
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -128,8 +128,7 @@ const ProfilePage = ({ location, history }) => {
           <Button type="submit" variant="success">
             Update
           </Button>
-
-          {userInfo ? <h2 className="mt-2">MY CREDITS: {money}</h2> : null}
+          {userInfo ? <h2 className="mt-3 mb-0">MY CREDITS: {money}</h2> : null}
         </Form>
       </Col>
       <Col md={9}>
@@ -139,7 +138,7 @@ const ProfilePage = ({ location, history }) => {
         ) : errorOrders ? (
           <Message variant="danger">{errorOrders}</Message>
         ) : (
-          <Table striped bordered hover className="table-sm">
+          <Table striped bordered hover className="table-sm bg-light">
             <thead>
               <tr>
                 <th>ID</th>

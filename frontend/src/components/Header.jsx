@@ -12,6 +12,9 @@ const Header = () => {
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDetails = useSelector(state => state.userDetails);
+  const { user } = userDetails;
+
   const logoutHandler = () => {
     dispatch(logout());
   };
@@ -33,18 +36,21 @@ const Header = () => {
                 <i className="fas fa-shopping-cart" /> Cart
               </Nav.Link>
             </LinkContainer>
-            {userInfo ? (
-              <NavDropdown title={`Hi ${userInfo.name}!`} id="username">
-                <LinkContainer to="/profile">
-                  <NavDropdown.Item>Profile</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/productlist">
-                  <NavDropdown.Item>Sell</NavDropdown.Item>
-                </LinkContainer>
-                <NavDropdown.Item onClick={logoutHandler}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
+            {userInfo && user ? (
+              <>
+                <NavDropdown title={`Hi ${userInfo.name}!`} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/productlist">
+                    <NavDropdown.Item>Sell</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <Navbar.Text id="user-credits">{`You have ${user.money} credits`}</Navbar.Text>
+              </>
             ) : (
               <LinkContainer to="/login">
                 <Nav.Link id="sign-in-menu">

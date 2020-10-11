@@ -35,6 +35,18 @@ h2 {
   background-color: #4bbf73;
 }
 
+#cart-image {
+  width: 100%;
+  height: 15vh;
+  object-fit: contain;
+}
+
+#order-image {
+  width: 100%;
+  height: 7.5vh;
+  object-fit: contain;
+}
+
 .card-img-top {
   width: 100%;
   height: 30vh;
@@ -46,12 +58,17 @@ h2 {
 }
 
 #username,
+#user-credits,
 #cart,
 #admin-menu,
 #sign-in-menu,
 #search-box-btn,
 #shop-brand {
   color: black;
+}
+
+#user-credits {
+  padding: 0.715rem 0.5rem;
 }
 
 #username:hover,

@@ -5,7 +5,6 @@ import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
 import {
   listProductDetails,
   updateProduct,
@@ -96,10 +95,10 @@ const ProductEditPage = ({ match, history }) => {
 
   return (
     <>
-      <Link to="/productlist" className="btn btn-light my-3">
+      <Link to="/productlist" className="btn btn-danger my-3">
         Go Back
       </Link>
-      <FormContainer>
+      <div className="justify-content-center align-items-center container  bg-light p-5">
         <h1>Edit Product</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
@@ -191,7 +190,7 @@ const ProductEditPage = ({ match, history }) => {
             </Button>
           </Form>
         )}
-      </FormContainer>
+      </div>
     </>
   );
 };

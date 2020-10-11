@@ -36,7 +36,7 @@ const RegisterPage = ({ location, history }) => {
   };
 
   return (
-    <Form className="justify-content-center align-items-center container w-25 bg-light">
+    <div className="justify-content-center align-items-center container bg-light p-4">
       <h1>Sign Up</h1>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
@@ -89,13 +89,13 @@ const RegisterPage = ({ location, history }) => {
 
       <Row className="py-3">
         <Col>
-          Have an Account?{' '}
+          Already have an account?{' '}
           <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-            Login
+            Log in
           </Link>
         </Col>
       </Row>
-    </Form>
+    </div>
   );
 };
 
