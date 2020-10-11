@@ -93,15 +93,26 @@ const ProfilePage = ({ location, history }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="money">
-            <Form.Label>Money</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter money amount"
-              value={money}
-              onChange={e => setMoney(e.target.value)}
-            />
-          </Form.Group>
+          {userInfo && userInfo.isAdmin ? (
+            <Form.Group controlId="money">
+              <Form.Label>Money</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter money amount"
+                value={money}
+                onChange={e => setMoney(e.target.value)}
+              />
+            </Form.Group>
+          ) : (
+            <Form.Group controlId="money">
+              <Form.Label>Money</Form.Label>
+              <Form.Control
+                placeholder="Enter money amount"
+                value={money}
+                disabled
+              />
+            </Form.Group>
+          )}
 
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
@@ -123,7 +134,7 @@ const ProfilePage = ({ location, history }) => {
             />
           </Form.Group>
 
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="success">
             Update
           </Button>
         </Form>

@@ -38,6 +38,9 @@ const Header = () => {
                 <LinkContainer to="/profile">
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/productlist">
+                  <NavDropdown.Item>Sell</NavDropdown.Item>
+                </LinkContainer>
                 <NavDropdown.Item onClick={logoutHandler}>
                   Logout
                 </NavDropdown.Item>
@@ -53,9 +56,6 @@ const Header = () => {
               <NavDropdown title="Admin" id="admin-menu">
                 <LinkContainer to="/admin/userlist">
                   <NavDropdown.Item>Users</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/productlist">
-                  <NavDropdown.Item>Products</NavDropdown.Item>
                 </LinkContainer>
                 <LinkContainer to="/admin/orderlist">
                   <NavDropdown.Item>Orders</NavDropdown.Item>
