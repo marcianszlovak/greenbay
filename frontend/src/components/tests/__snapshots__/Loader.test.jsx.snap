@@ -6,6 +6,7 @@ exports[`should render correctly 1`] = `
   role="status"
   style={
     Object {
+      "color": "yellowgreen",
       "display": "block",
       "height": "100px",
       "margin": "auto",

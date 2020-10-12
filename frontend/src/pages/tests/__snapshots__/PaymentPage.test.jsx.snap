@@ -1,125 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentPage Component should match the snapshot 1`] = `
-<div
-  className="container"
->
+Array [
   <div
-    className="justify-content-md-center row"
+    className="justify-content-center mb-4 nav"
+    onKeyDown={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#f8f8f8",
+      }
+    }
   >
     <div
-      className="col-md-6 col-12"
+      className="nav-item"
     >
-      <div
-        className="justify-content-center mb-4 nav"
+      <a
+        className="nav-link active"
+        data-rb-event-key="/login"
+        href="/login"
+        onClick={[Function]}
         onKeyDown={[Function]}
       >
-        <div
-          className="nav-item"
+        Sign In
+      </a>
+    </div>
+    <div
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        data-rb-event-key="/shipping"
+        href="/shipping"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Shipping
+      </a>
+    </div>
+    <div
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        data-rb-event-key="/payment"
+        href="/payment"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+      >
+        Payment
+      </a>
+    </div>
+    <div
+      className="nav-item"
+    >
+      <a
+        aria-disabled={true}
+        className="nav-link disabled"
+        data-rb-event-key={null}
+        href="#"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex={-1}
+      >
+        Place Order
+      </a>
+    </div>
+  </div>,
+  <div
+    className="justify-content-center align-items-center container bg-light p-3"
+  >
+    <h1
+      className="pl-3"
+    >
+      Payment Method
+    </h1>
+    <form
+      className="pr-3 pl-3"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className="form-label"
         >
-          <a
-            className="nav-link"
-            data-rb-event-key="/login"
-            href="/login"
-            onClick={[Function]}
-            onKeyDown={[Function]}
+          Select Method
+        </label>
+        <div
+          className="mb-1 form-check"
+        >
+          <input
+            checked={true}
+            className="form-check-input"
+            disabled={false}
+            onChange={[Function]}
+            type="radio"
+            value="PayGreen"
+          />
+          <label
+            className="form-check-label"
+            title=""
           >
-            Sign In
-          </a>
+            PayGreen
+          </label>
         </div>
         <div
-          className="nav-item"
+          className="form-check"
         >
-          <a
-            className="nav-link"
-            data-rb-event-key="/shipping"
-            href="/shipping"
-            onClick={[Function]}
-            onKeyDown={[Function]}
+          <input
+            checked={false}
+            className="form-check-input"
+            disabled={false}
+            onChange={[Function]}
+            type="radio"
+            value="FoxCard"
+          />
+          <label
+            className="form-check-label"
+            title=""
           >
-            Shipping
-          </a>
-        </div>
-        <div
-          className="nav-item"
-        >
-          <a
-            className="nav-link"
-            data-rb-event-key="/payment"
-            href="/payment"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-          >
-            Payment
-          </a>
-        </div>
-        <div
-          className="nav-item"
-        >
-          <a
-            aria-disabled={true}
-            className="nav-link disabled"
-            data-rb-event-key={null}
-            href="#"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={-1}
-          >
-            Place Order
-          </a>
+            FoxCard
+          </label>
         </div>
       </div>
-      <h1>
-        Payment Method
-      </h1>
-      <form
-        className=""
-        onSubmit={[Function]}
+      <button
+        className="mb-2 btn btn-success"
+        disabled={false}
+        type="submit"
       >
-        <div
-          className="form-group"
-        >
-          <legend
-            className="form-label"
-          >
-            Select Method
-          </legend>
-          <div
-            className="col"
-          >
-            <div
-              className="form-check"
-            >
-              <input
-                checked={true}
-                className="form-check-input"
-                disabled={false}
-                id="PayPal"
-                name="paymentMethod"
-                onChange={[Function]}
-                type="radio"
-                value="PayPal"
-              />
-              <label
-                className="form-check-label"
-                htmlFor="PayPal"
-                title=""
-              >
-                PayPal or Credit Card
-              </label>
-            </div>
-          </div>
-        </div>
-        <button
-          className="btn btn-primary"
-          disabled={false}
-          type="submit"
-        >
-          Continue
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
+        Continue
+      </button>
+    </form>
+  </div>,
+]
 `;

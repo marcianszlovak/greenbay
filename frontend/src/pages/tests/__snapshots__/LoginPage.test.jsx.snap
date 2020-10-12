@@ -2,81 +2,73 @@
 
 exports[`LoginPage Component should match the snapshot 1`] = `
 <div
-  className="container"
+  className="justify-content-center align-items-center container bg-light p-4"
 >
-  <div
-    className="justify-content-md-center row"
+  <h1>
+    Sign In
+  </h1>
+  <form
+    className=""
+    onSubmit={[Function]}
   >
     <div
-      className="col-md-6 col-12"
+      className="form-group"
     >
-      <h1>
-        Sign In
-      </h1>
-      <form
-        className=""
-        onSubmit={[Function]}
+      <label
+        className="form-label"
+        htmlFor="email"
       >
-        <div
-          className="form-group"
-        >
-          <label
-            className="form-label"
-            htmlFor="email"
-          >
-            Email Address
-          </label>
-          <input
-            className="form-control"
-            id="email"
-            onChange={[Function]}
-            placeholder="Enter email"
-            type="email"
-            value=""
-          />
-        </div>
-        <div
-          className="form-group"
-        >
-          <label
-            className="form-label"
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            className="form-control"
-            id="password"
-            onChange={[Function]}
-            placeholder="Enter password"
-            type="password"
-            value=""
-          />
-        </div>
-        <button
-          className="btn btn-primary"
-          disabled={false}
-          type="submit"
-        >
-          Sign In
-        </button>
-      </form>
-      <div
-        className="py-3 row"
+        Email Address
+      </label>
+      <input
+        className="form-control"
+        id="email"
+        onChange={[Function]}
+        placeholder="Enter email"
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <label
+        className="form-label"
+        htmlFor="password"
       >
-        <div
-          className="col"
-        >
-          New Customer?
-           
-          <a
-            href="/register"
-            onClick={[Function]}
-          >
-            Register
-          </a>
-        </div>
-      </div>
+        Password
+      </label>
+      <input
+        className="form-control"
+        id="password"
+        onChange={[Function]}
+        placeholder="Enter password"
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      className="btn btn-success"
+      disabled={false}
+      type="submit"
+    >
+      Sign In
+    </button>
+  </form>
+  <div
+    className="py-3 row"
+  >
+    <div
+      className="col"
+    >
+      Don't have an account?
+       
+      <a
+        href="/register"
+        onClick={[Function]}
+      >
+        Sign up
+      </a>
     </div>
   </div>
 </div>

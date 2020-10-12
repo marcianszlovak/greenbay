@@ -11,7 +11,7 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
       User Profile
     </h2>
     <form
-      className=""
+      className="bg-light p-3"
       onSubmit={[Function]}
     >
       <div
@@ -55,24 +55,6 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
       >
         <label
           className="form-label"
-          htmlFor="money"
-        >
-          Money
-        </label>
-        <input
-          className="form-control"
-          id="money"
-          onChange={[Function]}
-          placeholder="Enter money amount"
-          type="number"
-          value=""
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className="form-label"
           htmlFor="password"
         >
           Password
@@ -105,7 +87,7 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
         />
       </div>
       <button
-        className="btn btn-primary"
+        className="btn btn-success"
         disabled={false}
         type="submit"
       >
@@ -120,7 +102,7 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
       My Orders
     </h2>
     <table
-      className="table-sm table table-striped table-bordered table-hover"
+      className="table-sm bg-light table table-striped table-bordered table-hover"
     >
       <thead>
         <tr>
