@@ -71,7 +71,6 @@ export default class OrderController {
       const userIdAmountMap = new Map();
 
       order.orderItems.map(item => {
-        console.log(item);
         userIdAmountMap.set(item.user, item.qty * item.price);
       });
       console.log(userIdAmountMap);
@@ -124,7 +123,6 @@ export default class OrderController {
 
   getMyOrders = asyncHandler(async (req, res) => {
     const orders = await Order.find({ user: req.user._id });
-    console.log(orders);
     res.json(orders);
   });
 
