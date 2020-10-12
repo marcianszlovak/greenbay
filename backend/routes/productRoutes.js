@@ -1,5 +1,5 @@
 import express from 'express';
-import { admin, protect } from '../middleware/authMiddleware.js';
+import { protect } from '../middleware/authMiddleware.js';
 import { container, setup } from '../di-setup.js';
 
 setup();
@@ -11,6 +11,7 @@ router
   .route('/')
   .get(productController.getProducts)
   .post(protect, productController.createProduct);
+router.route('/myproducts').get(protect, productController.getMyProducts);
 router
   .route('/:id/reviews')
   .post(protect, productController.createProductReview);

@@ -8,18 +8,18 @@ const router = express.Router();
 const userController = container.resolve('userController');
 
 router
-    .route('/')
-    .post(userController.registerUser)
-    .get(protect, admin, userController.getUsers);
+  .route('/')
+  .post(userController.registerUser)
+  .get(protect, admin, userController.getUsers);
 router.post('/login', userController.authUser);
 router
-    .route('/profile')
-    .get(protect, userController.getUserProfile)
-    .put(protect, userController.updateUserProfile);
+  .route('/profile')
+  .get(protect, userController.getUserProfile)
+  .put(protect, userController.updateUserProfile);
 router
-    .route('/:id')
-    .delete(protect, admin, userController.deleteUser)
-    .get(protect, admin, userController.getUserById)
-    .put(protect, admin, userController.updateUser);
+  .route('/:id')
+  .delete(protect, admin, userController.deleteUser)
+  .get(protect, admin, userController.getUserById)
+  .put(protect, admin, userController.updateUser);
 
 export default router;

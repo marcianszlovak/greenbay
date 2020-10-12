@@ -8,17 +8,22 @@ import Paginate from '../components/Paginate';
 import {
   createProduct,
   deleteProduct,
-  listProducts,
+  listMyProducts,
 } from '../redux/actions/productActions';
-import { PRODUCT_CREATE_RESET } from '../redux/constants/productConstants';
 
 const ProductListPage = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
-  const productList = useSelector(state => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const productListMy = useSelector(state => state.productListMy);
+  const {
+    loading: loadingProducts,
+    error: errorProducts,
+    products,
+    page,
+    pages,
+  } = productListMy;
 
   const productDelete = useSelector(state => state.productDelete);
   const {
@@ -39,7 +44,7 @@ const ProductListPage = ({ history, match }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch({ type: PRODUCT_CREATE_RESET });
+    dispatch(listMyProducts('', pageNumber));
 
     if (!userInfo) {
       history.push('/login');
@@ -48,7 +53,8 @@ const ProductListPage = ({ history, match }) => {
     if (successCreate) {
       history.push(`/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts('', pageNumber));
+      console.log(productListMy);
+      dispatch(listMyProducts('', pageNumber));
     }
   }, [
     dispatch,
@@ -92,10 +98,10 @@ const ProductListPage = ({ history, match }) => {
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
       {errorCreate && <Message variant="danger">{errorCreate}</Message>}
-      {loading ? (
+      {loadingProducts ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+      ) : errorProducts ? (
+        <Message variant="danger">{errorProducts}</Message>
       ) : (
         <>
           <Table

@@ -124,6 +124,7 @@ export default class OrderController {
 
   getMyOrders = asyncHandler(async (req, res) => {
     const orders = await Order.find({ user: req.user._id });
+    console.log(orders);
     res.json(orders);
   });
 
