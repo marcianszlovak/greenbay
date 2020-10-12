@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { login } from '../redux/actions/userActions';
+import { getUserDetails, login } from '../redux/actions/userActions';
 
 const LoginPage = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -19,6 +19,7 @@ const LoginPage = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
+      dispatch(getUserDetails('profile'));
       history.push(redirect);
     }
   }, [history, userInfo, redirect]);

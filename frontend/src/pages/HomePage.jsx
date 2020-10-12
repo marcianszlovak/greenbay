@@ -6,7 +6,6 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
 import { listProducts } from '../redux/actions/productActions';
-import { getUserDetails } from '../redux/actions/userActions';
 
 const HomePage = ({ match }) => {
   const keyword = match.params.keyword;
@@ -22,7 +21,6 @@ const HomePage = ({ match }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch(getUserDetails('profile'));
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber, userInfo]);
 

@@ -27,7 +27,7 @@ const ShippingPage = ({ history }) => {
       <div className="justify-content-center align-items-center container bg-light p-3">
         <h1 className="pl-3">Shipping</h1>
         <Form onSubmit={submitHandler} className="pr-3 pl-3">
-          <Form.Group controlId="address">
+          <Form.Group>
             <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
@@ -38,7 +38,7 @@ const ShippingPage = ({ history }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="city">
+          <Form.Group>
             <Form.Label>City</Form.Label>
             <Form.Control
               type="text"
@@ -49,7 +49,7 @@ const ShippingPage = ({ history }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="postalCode">
+          <Form.Group>
             <Form.Label>Postal Code</Form.Label>
             <Form.Control
               type="text"
@@ -60,7 +60,7 @@ const ShippingPage = ({ history }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="country">
+          <Form.Group>
             <Form.Label>Country</Form.Label>
             <Form.Control
               type="text"
