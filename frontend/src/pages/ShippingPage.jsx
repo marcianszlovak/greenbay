@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import CheckoutPage from '../components/CheckoutPage';
+import CheckoutBar from '../components/CheckoutBar';
 import { saveShippingAddress } from '../redux/actions/cartActions';
 
 const ShippingPage = ({ history }) => {
@@ -23,8 +23,8 @@ const ShippingPage = ({ history }) => {
 
   return (
     <>
-      <CheckoutPage step1 step2 />
-      <Form className="justify-content-center align-items-center container bg-light p-3">
+      <CheckoutBar step1 step2 />
+      <div className="justify-content-center align-items-center container bg-light p-3">
         <h1 className="pl-3">Shipping</h1>
         <Form onSubmit={submitHandler} className="pr-3 pl-3">
           <Form.Group controlId="address">
@@ -75,7 +75,7 @@ const ShippingPage = ({ history }) => {
             Continue
           </Button>
         </Form>
-      </Form>
+      </div>
     </>
   );
 };

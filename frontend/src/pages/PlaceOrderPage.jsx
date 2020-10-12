@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
-import CheckoutPage from '../components/CheckoutPage';
+import CheckoutBar from '../components/CheckoutBar';
 import { createOrder } from '../redux/actions/orderActions';
 
 const PlaceOrderPage = ({ history }) => {
@@ -11,7 +11,6 @@ const PlaceOrderPage = ({ history }) => {
 
   const cart = useSelector(state => state.cart);
 
-  //   Calculate prices
   const addDecimals = num => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -33,9 +32,9 @@ const PlaceOrderPage = ({ history }) => {
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
+      window.location.reload();
     }
-    // eslint-disable-next-line
-  }, [history, success]);
+  }, [history, success, order]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -53,7 +52,7 @@ const PlaceOrderPage = ({ history }) => {
 
   return (
     <>
-      <CheckoutPage step1 step2 step3 step4 />
+      <CheckoutBar step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
           <ListGroup>

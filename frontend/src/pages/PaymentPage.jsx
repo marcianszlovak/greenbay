@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import CheckoutPage from '../components/CheckoutPage';
+import CheckoutBar from '../components/CheckoutBar';
 import { savePaymentMethod } from '../redux/actions/cartActions';
 
 const PaymentPage = ({ history, initialValues, onSubmit }) => {
@@ -24,8 +24,8 @@ const PaymentPage = ({ history, initialValues, onSubmit }) => {
 
   return (
     <>
-      <CheckoutPage step1 step2 step3 />
-      <Form className="justify-content-center align-items-center container bg-light p-3">
+      <CheckoutBar step1 step2 step3 />
+      <div className="justify-content-center align-items-center container bg-light p-3">
         <h1 className="pl-3">Payment Method</h1>
         <Form onSubmit={submitHandler} className="pr-3 pl-3">
           <Form.Group>
@@ -51,7 +51,7 @@ const PaymentPage = ({ history, initialValues, onSubmit }) => {
             Continue
           </Button>
         </Form>
-      </Form>
+      </div>
     </>
   );
 };

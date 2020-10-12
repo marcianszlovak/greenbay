@@ -33,12 +33,12 @@ const ProfilePage = ({ location, history }) => {
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
   useEffect(() => {
+    dispatch(listMyOrders());
     if (!userInfo) {
       history.push('/login');
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'));
-        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);

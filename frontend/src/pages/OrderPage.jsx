@@ -14,9 +14,9 @@ import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
 } from '../redux/constants/orderConstants';
-import { getUserDetails } from '../redux/actions/userActions';
 import { emptyCart } from '../redux/actions/cartActions';
 import moment from 'moment';
+import { getUserDetails } from '../redux/actions/userActions';
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
@@ -38,32 +38,26 @@ const OrderPage = ({ match, history }) => {
   const userDetails = useSelector(state => state.userDetails);
   const { user } = userDetails;
 
-  // if (!loading) {
-  //   const addDecimals = num => {
-  //     return (Math.round(num * 100) / 100).toFixed(2);
-  //   };
-  //
-  //   order.itemsPrice = addDecimals(
-  //     order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-  //   );
-  //
-  //   user.money = addDecimals(user.money);
-  // }
+  const addDecimals = num => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     }
 
-    dispatch({ type: ORDER_PAY_RESET });
-    dispatch({ type: ORDER_DELIVER_RESET });
-    dispatch(getUserDetails('profile'));
-    dispatch(listMyOrders());
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successPay, successDeliver, userInfo, history]);
+    if (!order || successPay || successDeliver) {
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
+      dispatch(getOrderDetails(orderId));
+      dispatch(getUserDetails('profile'));
+      dispatch(listMyOrders());
+    }
+  }, [dispatch, orderId, successPay, successDeliver, order, userInfo, history]);
 
-  const paymentHandler = paymentResult => {
-    dispatch(payOrder(orderId, paymentResult));
+  const paymentHandler = () => {
+    dispatch(payOrder(orderId));
     dispatch(emptyCart());
   };
 
@@ -166,13 +160,21 @@ const OrderPage = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Available Credits</Col>
-                  <Col>{user.money} credits</Col>
+                  <Col>{addDecimals(user.money)} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>{order.itemsPrice} credits</Col>
+                  <Col>
+                    {addDecimals(
+                      order.orderItems.reduce(
+                        (acc, item) => acc + item.price * item.qty,
+                        0
+                      )
+                    )}{' '}
+                    credits
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

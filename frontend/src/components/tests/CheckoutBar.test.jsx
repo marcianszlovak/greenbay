@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import CheckoutPage from '../CheckoutPage';
+import CheckoutBar from '../CheckoutBar';
 
 it('should render correctly', () => {
-  const tree = renderer.create(<CheckoutPage />).toJSON();
+  const tree = renderer.create(<CheckoutBar />).toJSON();
   expect(tree).toMatchSnapshot();
 });

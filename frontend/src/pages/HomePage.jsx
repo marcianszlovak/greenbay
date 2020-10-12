@@ -7,7 +7,6 @@ import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
 import { listProducts } from '../redux/actions/productActions';
 import { getUserDetails } from '../redux/actions/userActions';
-import { listMyOrders } from '../redux/actions/orderActions';
 
 const HomePage = ({ match }) => {
   const keyword = match.params.keyword;
@@ -24,7 +23,6 @@ const HomePage = ({ match }) => {
 
   useEffect(() => {
     dispatch(getUserDetails('profile'));
-    dispatch(listMyOrders());
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber, userInfo]);
 
