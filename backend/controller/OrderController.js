@@ -6,27 +6,15 @@ export default class OrderController {
   }
 
   addOrderItems = asyncHandler(async (req, res) => {
-    const {
-      orderItems,
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
-    } = req.body;
-
-    const user = req.user._id;
-
     const createdOrder = await this.orderService.add(
-      orderItems,
-      user,
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice
+      req.body.orderItems,
+      req.user._id,
+      req.body.shippingAddress,
+      req.body.paymentMethod,
+      req.body.itemsPrice,
+      req.body.taxPrice,
+      req.body.shippingPrice,
+      req.body.totalPrice
     );
 
     if (!createdOrder) {

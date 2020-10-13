@@ -109,11 +109,9 @@ export default class ProductController {
   });
 
   addProductReview = asyncHandler(async (req, res) => {
-    const { rating, comment } = req.body;
-
     const reviewedProduct = await this.productService.addReview(
-      rating,
-      comment,
+      req.body.rating,
+      req.body.comment,
       req.params.id,
       req.user._id,
       req.user.name
