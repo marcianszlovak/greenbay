@@ -1,4 +1,4 @@
-import * as awilix from 'awilix';
+import awilix from 'awilix';
 
 import OrderController from './controller/OrderController.js';
 import UserController from './controller/UserController.js';
