@@ -12,9 +12,7 @@ router
   .get(productController.getProducts)
   .post(protect, productController.createProduct);
 router.route('/myproducts').get(protect, productController.getMyProducts);
-router
-  .route('/:id/reviews')
-  .post(protect, productController.createProductReview);
+router.route('/:id/reviews').post(protect, productController.addProductReview);
 router.get('/top', productController.getTopProducts);
 router
   .route('/:id')

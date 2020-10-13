@@ -2,52 +2,52 @@ import asyncHandler from 'express-async-handler';
 import Product from '../model/productModel.js';
 
 export default class ProductController {
-  constructor() {}
+  constructor({ productService }) {
+    this.productService = productService;
+  }
 
   getProducts = asyncHandler(async (req, res) => {
-    const pageSize = 10;
-    const page = Number(req.query.pageNumber) || 1;
+    const products = await this.productService.getAll(
+      Number(req.query.pageNumber) || 1,
+      req.query.keyword
+        ? {
+            name: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          }
+        : {}
+    );
 
-    const keyword = req.query.keyword
-      ? {
-          name: {
-            $regex: req.query.keyword,
-            $options: 'i',
-          },
-        }
-      : {};
+    res.json(products);
+  });
 
-    const count = await Product.countDocuments({ ...keyword });
-    const products = await Product.find({ ...keyword })
-      .limit(pageSize)
-      .skip(pageSize * (page - 1));
+  getTopProducts = asyncHandler(async (req, res) => {
+    const topProducts = await this.productService.getTop();
 
-    res.json({ products, page, pages: Math.ceil(count / pageSize) });
+    res.json(topProducts);
   });
 
   getMyProducts = asyncHandler(async (req, res) => {
-    const pageSize = 10;
-    const page = Number(req.query.pageNumber) || 1;
+    const myProducts = await this.productService.getAllMy(
+      Number(req.query.pageNumber) || 1,
+      req.query.keyword
+        ? {
+            name: {
+              $regex: req.query.keyword,
+              $options: 'i',
+            },
+          }
+        : {},
+      req.user._id
+    );
 
-    const keyword = req.query.keyword
-      ? {
-          name: {
-            $regex: req.query.keyword,
-            $options: 'i',
-          },
-        }
-      : {};
-
-    const count = await Product.countDocuments({ ...keyword });
-    const products = await Product.find({ ...keyword, user: req.user._id })
-      .limit(pageSize)
-      .skip(pageSize * (page - 1));
-
-    res.json({ products, page, pages: Math.ceil(count / pageSize) });
+    res.json(myProducts);
   });
 
   getProductById = asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await this.productService.getById(req.params.id);
+    console.log(product);
 
     if (product) {
       res.json(product);
@@ -58,10 +58,9 @@ export default class ProductController {
   });
 
   deleteProduct = asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const deletedProduct = await this.productService.delete(req.params.id);
 
-    if (product) {
-      await product.remove();
+    if (deletedProduct) {
       res.json({ message: 'Product removed' });
     } else {
       res.status(404);
@@ -70,20 +69,11 @@ export default class ProductController {
   });
 
   createProduct = asyncHandler(async (req, res) => {
-    const product = new Product({
-      name: 'Sample name',
-      price: 0,
-      user: req.user._id,
-      seller: req.user.name,
-      image: '/images/sample.jpg',
-      brand: 'Sample brand',
-      category: 'Sample category',
-      countInStock: 0,
-      numReviews: 0,
-      description: 'Sample description',
-    });
+    const createdProduct = await this.productService.create(
+      req.user._id,
+      req.user.name
+    );
 
-    const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   });
 
@@ -119,47 +109,22 @@ export default class ProductController {
     }
   });
 
-  createProductReview = asyncHandler(async (req, res) => {
+  addProductReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
 
-    const product = await Product.findById(req.params.id);
+    const reviewedProduct = await this.productService.addReview(
+      rating,
+      comment,
+      req.params.id,
+      req.user._id,
+      req.user.name
+    );
 
-    if (product) {
-      const alreadyReviewed = product.reviews.find(
-        r => r.user.toString() === req.user._id.toString()
-      );
-
-      if (alreadyReviewed) {
-        res.status(400);
-        throw new Error('Product already reviewed');
-      }
-
-      const review = {
-        name: req.user.name,
-        rating: Number(rating),
-        comment,
-        user: req.user._id,
-      };
-
-      product.reviews.push(review);
-
-      product.numReviews = product.reviews.length;
-
-      product.rating =
-        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-        product.reviews.length;
-
-      await product.save();
+    if (reviewedProduct) {
       res.status(201).json({ message: 'Review added' });
     } else {
       res.status(404);
       throw new Error('Product not found');
     }
-  });
-
-  getTopProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({}).sort({ rating: -1 }).limit(3);
-
-    res.json(products);
   });
 }
