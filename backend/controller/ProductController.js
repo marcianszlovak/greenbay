@@ -47,7 +47,6 @@ export default class ProductController {
 
   getProductById = asyncHandler(async (req, res) => {
     const product = await this.productService.getById(req.params.id);
-    console.log(product);
 
     if (product) {
       res.json(product);
@@ -69,7 +68,7 @@ export default class ProductController {
   });
 
   createProduct = asyncHandler(async (req, res) => {
-    const createdProduct = await this.productService.create(
+    const createdProduct = await this.productService.add(
       req.user._id,
       req.user.name
     );

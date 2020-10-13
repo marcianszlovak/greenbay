@@ -37,9 +37,9 @@ export default class ProductService {
 
     if (!product) {
       throw new Error(`Product with ${productId} id not found`);
-    } else {
-      return await product.remove();
     }
+
+    return product;
   };
 
   getTop = async () => {
