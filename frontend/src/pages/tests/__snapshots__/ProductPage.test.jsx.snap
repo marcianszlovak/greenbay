@@ -128,14 +128,17 @@ Array [
               className="row"
             >
               <div
-                className="col"
+                className="mt-3 col"
               >
                 Seller:
               </div>
               <div
                 className="col"
               >
-                <strong />
+                <img
+                  className="img-fluid"
+                  id="profile-picture-product"
+                />
               </div>
             </div>
           </div>

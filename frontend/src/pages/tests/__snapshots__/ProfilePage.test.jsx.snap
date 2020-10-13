@@ -8,7 +8,51 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
     className="col-md-3"
   >
     <h2>
-      User Profile
+      My Profile
+    </h2>
+    <div
+      className="fade alert alert-success show"
+      role="alert"
+    >
+      Profile Updated
+    </div>
+    <div
+      className="mb-5 card"
+    >
+      <img
+        className="card-img-top"
+        id="profile-picture"
+      />
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          Name: 
+        </div>
+        <div
+          className="card-title h5"
+        >
+          Email: 
+        </div>
+        <div
+          className="card-title h5"
+        >
+          Credits: 
+        </div>
+        <button
+          className="btn btn-success"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          View my products
+        </button>
+      </div>
+    </div>
+    <h2>
+      Edit Profile
     </h2>
     <form
       className="bg-light p-3"
@@ -47,6 +91,24 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
           onChange={[Function]}
           placeholder="Enter email"
           type="email"
+          value=""
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className="form-label"
+          htmlFor="image"
+        >
+          Add/Edit Profile Picture
+        </label>
+        <input
+          className="form-control"
+          id="image"
+          onChange={[Function]}
+          placeholder="Enter image url"
+          type="text"
           value=""
         />
       </div>

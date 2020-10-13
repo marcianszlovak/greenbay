@@ -7,8 +7,9 @@ h3 {
 }
 
 h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   padding: 1rem 0;
+  text-transform: none;
 }
 
 h2 {
@@ -21,18 +22,41 @@ h2 {
 }
 
 #main-header {
+  padding: 0 15px 0 15px;
+  text-transform: none;
   background-color: yellowgreen;
-
   font-size: 15px;
+  border-bottom: 1px solid #4bbf73;
 }
 
 #shop-brand {
-  font-size: x-large;
+  font-size: 1.8rem;
+}
+
+#shop-brand {
+  text-transform: none;
+  color: #3ca861;
+  font-weight: 800;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
 #shop-brand:hover {
-  color: white;
-  background-color: #4bbf73;
+  color: yellowgreen;
+  /*background-color: #4bbf73;*/
+}
+
+#recently-added {
+  background: linear-gradient(
+    to right,
+    #f4fabe 70%,
+    #e9f577 70%,
+    #e9f577 90%,
+    #c9e43b 90%
+  );
+  color: #364f03;
+  padding: 20px;
+  margin-bottom: 30px;
 }
 
 #cart-image {
@@ -69,12 +93,15 @@ h2 {
   background-color: yellowgreen;
 }
 
-#shop-brand {
-  text-transform: none;
+#search-box {
+  width: 60vh;
+  border: 2px solid #4bbf73;
 }
 
-#search-box {
-  width: 400px;
+#search-box-btn {
+  height: 45px;
+  margin-top: 16px;
+  margin-left: 5px;
 }
 
 #username,
@@ -82,8 +109,7 @@ h2 {
 #cart,
 #admin-menu,
 #sign-in-menu,
-#search-box-btn,
-#shop-brand {
+#search-box-btn {
   color: black;
 }
 

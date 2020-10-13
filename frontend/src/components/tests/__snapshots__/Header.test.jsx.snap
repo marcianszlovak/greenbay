@@ -3,18 +3,9 @@
 exports[`Header Component should match the snapshot 1`] = `
 <header>
   <nav
-    className="navbar navbar-expand-lg navbar-light"
+    className="navbar navbar-expand-xl navbar-light"
     id="main-header"
   >
-    <a
-      className="p-2 active navbar-brand"
-      href="/"
-      id="shop-brand"
-      onClick={[Function]}
-      style={Object {}}
-    >
-      greenBay
-    </a>
     <button
       aria-controls="basic-navbar-nav"
       aria-label="Toggle navigation"
@@ -31,29 +22,27 @@ exports[`Header Component should match the snapshot 1`] = `
       className="navbar-collapse collapse"
       id="basic-navbar-nav"
     >
-      <form
-        className="form-inline"
-        onSubmit={[Function]}
-      >
-        <input
-          className="mr-sm-2 ml-sm-5 form-control"
-          name="q"
-          onChange={[Function]}
-          placeholder="Search Products..."
-          type="text"
-        />
-        <button
-          className="p-2 btn btn-outline-success"
-          disabled={false}
-          id="search-box-btn"
-          type="submit"
-        >
-          Search
-        </button>
-      </form>
       <div
-        className="ml-auto navbar-nav"
+        className="mr-auto navbar-nav"
         id="user-info"
+        onKeyDown={[Function]}
+      >
+        <a
+          className="nav-link"
+          data-rb-event-key="/login"
+          href="/login"
+          id="sign-in-menu"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+        >
+          <i
+            className="fas fa-user"
+          />
+           Sign In
+        </a>
+      </div>
+      <div
+        className="navbar-nav"
         onKeyDown={[Function]}
       >
         <a
@@ -69,21 +58,43 @@ exports[`Header Component should match the snapshot 1`] = `
           />
            Cart
         </a>
-        <a
-          className="nav-link"
-          data-rb-event-key="/login"
-          href="/login"
-          id="sign-in-menu"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-        >
-          <i
-            className="fas fa-user"
-          />
-           Sign In
-        </a>
       </div>
     </div>
   </nav>
+  <div
+    className="nav"
+    onKeyDown={[Function]}
+  >
+    <a
+      className="active navbar-brand"
+      href="/"
+      id="shop-brand"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      greenBay
+    </a>
+    <form
+      className="mx-auto d-inline-flex"
+      onSubmit={[Function]}
+    >
+      <input
+        className="mt-3 form-control"
+        id="search-box"
+        name="q"
+        onChange={[Function]}
+        placeholder="Search Products..."
+        type="text"
+      />
+      <button
+        className="btn btn-success"
+        disabled={false}
+        id="search-box-btn"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
 </header>
 `;

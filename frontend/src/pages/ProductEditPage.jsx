@@ -57,7 +57,14 @@ const ProductEditPage = ({ match, history }) => {
         setUserProfilePicture(user.profilePicture);
       }
     }
-  }, [dispatch, history, productId, product, successUpdate]);
+  }, [
+    dispatch,
+    history,
+    productId,
+    product,
+    successUpdate,
+    user.profilePicture,
+  ]);
 
   const uploadFileHandler = async e => {
     const file = e.target.files[0];

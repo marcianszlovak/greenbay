@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import { logout } from '../redux/actions/userActions';
 import SearchBox from './SearchBox';
 
@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar expand="lg" collapseOnSelect id="main-header">
+      <Navbar expand="xl" collapseOnSelect id="main-header">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto" id="user-info">
@@ -39,23 +39,15 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
                 <Navbar.Text id="user-credits">{`You have ${user.money} credits`}</Navbar.Text>
-                <LinkContainer to="/cart" id="cart">
-                  <Nav.Link>
-                    <i className="fas fa-shopping-cart" /> Cart
-                  </Nav.Link>
-                </LinkContainer>
-                <Nav className="mr-auto">
-                  <Route
-                    render={({ history }) => <SearchBox history={history} />}
-                  />
-                </Nav>
               </>
             ) : (
-              <LinkContainer to="/login">
-                <Nav.Link id="sign-in-menu">
-                  <i className="fas fa-user" /> Sign In
-                </Nav.Link>
-              </LinkContainer>
+              <>
+                <LinkContainer to="/login">
+                  <Nav.Link id="sign-in-menu">
+                    <i className="fas fa-user" /> Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              </>
             )}
             {userInfo && userInfo.isAdmin && (
               <NavDropdown title="Admin" id="admin-menu">
@@ -68,8 +60,22 @@ const Header = () => {
               </NavDropdown>
             )}
           </Nav>
+          <Nav>
+            <LinkContainer to="/cart" id="cart">
+              <Nav.Link>
+                <i className="fas fa-shopping-cart" /> Cart
+              </Nav.Link>
+            </LinkContainer>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <Nav>
+        <LinkContainer to="/">
+          <NavbarBrand id="shop-brand">greenBay</NavbarBrand>
+        </LinkContainer>
+
+        <Route render={({ history }) => <SearchBox history={history} />} />
+      </Nav>
     </header>
   );
 };

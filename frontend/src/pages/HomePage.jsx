@@ -26,7 +26,7 @@ const HomePage = ({ match }) => {
 
   return (
     <>
-      <h1>Recently Added</h1>
+      <h1 id="recently-added">Recently Added</h1>
       {loading ? (
         <Loader />
       ) : error ? (
