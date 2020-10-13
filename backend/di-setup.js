@@ -5,7 +5,7 @@ import UserController from './controller/UserController.js';
 import ProductController from './controller/ProductController.js';
 
 export const container = awilix.createContainer({
-  injectionMode: awilix.InjectionMode.CLASSIC,
+  injectionMode: awilix.InjectionMode.PROXY,
 });
 
 export const setup = () => {
