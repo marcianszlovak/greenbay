@@ -23,6 +23,7 @@ h2 {
 
 #main-header {
   padding: 0 15px 0 15px;
+  /*font-family: Monaco, Consolas, Ubuntu Mono, monospace;*/
   text-transform: none;
   background-color: yellowgreen;
   font-size: 15px;
@@ -147,4 +148,9 @@ h2 {
 
 .dropdown-menu {
   min-width: auto;
+}
+
+.form-control:focus {
+  border-color: #4bbf73;
+  box-shadow: inset 0 1px 1px #4bbf73, 0 0 8px #4bbf73;
 }
