@@ -65,6 +65,7 @@ export default class UserController {
         name: user.name,
         email: user.email,
         money: user.money,
+        profilePicture: user.profilePicture,
         isAdmin: user.isAdmin,
       });
     } else {
@@ -80,6 +81,7 @@ export default class UserController {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.money = req.body.money || user.money;
+      user.profilePicture = req.body.profilePicture || user.profilePicture;
       if (req.body.password) {
         user.password = req.body.password;
       }
@@ -91,6 +93,7 @@ export default class UserController {
         name: updatedUser.name,
         email: updatedUser.email,
         money: updatedUser.money,
+        profilePicture: updatedUser.profilePicture,
         isAdmin: updatedUser.isAdmin,
         token: generateToken(updatedUser._id),
       });

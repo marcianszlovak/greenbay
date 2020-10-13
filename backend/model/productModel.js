@@ -23,6 +23,9 @@ const productSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    userProfilePicture: {
+      type: String,
+    },
     seller: {
       type: String,
       required: true,

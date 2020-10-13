@@ -53,8 +53,28 @@ h2 {
   object-fit: contain;
 }
 
+#profile-picture {
+  object-fit: fill;
+  height: 30vh;
+}
+
+#profile-picture-product {
+  width: 30%;
+  height: 5vh;
+  object-fit: fill;
+  margin-left: 20px;
+}
+
 #product:hover {
   background-color: yellowgreen;
+}
+
+#shop-brand {
+  text-transform: none;
+}
+
+#search-box {
+  width: 400px;
 }
 
 #username,

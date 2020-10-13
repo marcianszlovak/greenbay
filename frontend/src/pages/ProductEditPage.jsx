@@ -19,11 +19,15 @@ const ProductEditPage = ({ match, history }) => {
   const [image, setImage] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
+  const [userProfilePicture, setUserProfilePicture] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
   const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
+
+  const userDetails = useSelector(state => state.userDetails);
+  const { user } = userDetails;
 
   const productDetails = useSelector(state => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -50,6 +54,7 @@ const ProductEditPage = ({ match, history }) => {
         setCategory(product.category);
         setCountInStock(product.countInStock);
         setDescription(product.description);
+        setUserProfilePicture(user.profilePicture);
       }
     }
   }, [dispatch, history, productId, product, successUpdate]);
@@ -66,9 +71,7 @@ const ProductEditPage = ({ match, history }) => {
           'Content-Type': 'multipart/form-data',
         },
       };
-
       const { data } = await axios.post('/api/upload', formData, config);
-
       setImage(data);
       setUploading(false);
     } catch (error) {
@@ -89,6 +92,7 @@ const ProductEditPage = ({ match, history }) => {
         category,
         description,
         countInStock,
+        userProfilePicture,
       })
     );
   };

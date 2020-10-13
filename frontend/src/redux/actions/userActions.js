@@ -174,6 +174,7 @@ export const updateUserProfile = user => async (dispatch, getState) => {
         name: data.name,
         email: data.email,
         money: data.money,
+        profilePicture: data.profilePicture,
         isAdmin: data.isAdmin,
       })
     );

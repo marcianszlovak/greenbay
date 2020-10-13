@@ -22,7 +22,7 @@ const LoginPage = ({ location, history }) => {
       dispatch(getUserDetails('profile'));
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, redirect, dispatch]);
 
   const submitHandler = e => {
     e.preventDefault();

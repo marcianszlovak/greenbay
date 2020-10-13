@@ -49,6 +49,8 @@ const ProductPage = ({ history, match }) => {
   }, [dispatch, match, successProductReview]);
 
   const addToCartHandler = () => {
+    console.log(product);
+
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
@@ -98,9 +100,14 @@ const ProductPage = ({ history, match }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
-                      <Col>Seller:</Col>
+                      <Col className="mt-3">Seller:</Col>
                       <Col>
-                        <strong>{product.seller}</strong>
+                        {product.seller}
+                        <Image
+                          src={product.userProfilePicture}
+                          fluid
+                          id="profile-picture-product"
+                        />
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -125,7 +132,7 @@ const ProductPage = ({ history, match }) => {
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Quantity</Col>
+                        <Col className="mt-2">Quantity:</Col>
                         <Col>
                           <Form.Control
                             as="select"

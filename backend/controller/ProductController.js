@@ -96,6 +96,7 @@ export default class ProductController {
       brand,
       category,
       countInStock,
+      userProfilePicture,
     } = req.body;
 
     const product = await Product.findById(req.params.id);
@@ -108,6 +109,7 @@ export default class ProductController {
       product.brand = brand;
       product.category = category;
       product.countInStock = countInStock;
+      product.userProfilePicture = userProfilePicture;
 
       const updatedProduct = await product.save();
       res.json(updatedProduct);
