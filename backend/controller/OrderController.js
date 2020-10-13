@@ -1,10 +1,9 @@
 import asyncHandler from 'express-async-handler';
-import Order from '../model/orderModel.js';
-import User from '../model/userModel.js';
-import Product from '../model/productModel.js';
 
 export default class OrderController {
-  constructor() {}
+  constructor({ orderService }) {
+    this.orderService = orderService;
+  }
 
   addOrderItems = asyncHandler(async (req, res) => {
     const {
@@ -17,103 +16,47 @@ export default class OrderController {
       totalPrice,
     } = req.body;
 
-    if (orderItems && orderItems.length === 0) {
-      res.status(400);
-      throw new Error('No order items');
-    } else {
-      const order = new Order({
-        orderItems,
-        user: req.user._id,
-        shippingAddress,
-        paymentMethod,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-      });
+    const user = req.user._id;
 
-      const createdOrder = await order.save();
+    const createdOrder = await this.orderService.add(
+      orderItems,
+      user,
+      shippingAddress,
+      paymentMethod,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice
+    );
 
-      res.status(201).json(createdOrder);
-    }
+    res.status(201).json(createdOrder);
   });
 
   getOrderById = asyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id).populate(
-      'user',
-      'name email'
-    );
+    const order = await this.orderService.getById(req.params.id);
 
-    if (order) {
-      res.json(order);
-    } else {
-      res.status(404);
-      throw new Error('Order not found');
-    }
+    res.json(order);
   });
 
   updateOrderToPaid = asyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id);
-    const user = await User.findById(req.user.id);
+    const paidOrder = await this.orderService.updateToPaid(
+      req.params.id,
+      req.user.id,
+      req.body.id,
+      req.body.status,
+      req.body.update_time,
+      req.body.email_address
+    );
 
-    if (order && user && order.totalPrice < user.money) {
-      order.isPaid = true;
-      order.paidAt = Date.now();
-      order.paymentResult = {
-        id: req.body.id,
-        status: req.body.status,
-        update_time: req.body.update_time,
-        email_address: req.body.email_address,
-      };
-
-      user.money -= order.totalPrice;
-
-      const userIdAmountMap = new Map();
-
-      order.orderItems.map(item => {
-        userIdAmountMap.set(item.user, item.qty * item.price);
-      });
-      console.log(userIdAmountMap);
-
-      for (const [userId, amount] of userIdAmountMap) {
-        const user = await User.findById(userId);
-        user.money += amount;
-        await user.save();
-      }
-
-      const updatedOrder = await order.save();
-      const updatedUser = await user.save();
-
-      if (order.isPaid) {
-        res.json({ order: updatedOrder, user: updatedUser });
-      }
-    } else {
-      res.status(404);
-      throw new Error('Order not found');
-    }
+    res.json(paidOrder);
   });
 
   updateOrderToDelivered = asyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id);
-    const productIdQtyMap = new Map();
+    const updatedOrder = await this.orderService.updateToDelivered(
+      req.params.id
+    );
 
-    order.orderItems.map(item => {
-      productIdQtyMap.set(item.product, item.qty);
-    });
-
-    for (const [product, qty] of productIdQtyMap) {
-      const products = await Product.find({ _id: { $in: product } });
-      const foundProduct = products[0];
-      foundProduct.countInStock -= qty;
-      await foundProduct.save();
-    }
-
-    if (order) {
-      order.isDelivered = true;
-      order.deliveredAt = Date.now();
-
-      const updatedOrder = await order.save();
-
+    if (updatedOrder) {
       res.json(updatedOrder);
     } else {
       res.status(404);
@@ -122,12 +65,12 @@ export default class OrderController {
   });
 
   getMyOrders = asyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
-    res.json(orders);
+    const myOrders = await this.orderService.getMy(req.user._id);
+    res.json(myOrders);
   });
 
-  getOrders = asyncHandler(async (req, res) => {
-    const orders = await Order.find({}).populate('user', 'id name');
-    res.json(orders);
+  getAllOrders = asyncHandler(async (req, res) => {
+    const allOrders = await this.orderService.getAll();
+    res.json(allOrders);
   });
 }

@@ -10,7 +10,7 @@ const orderController = container.resolve('orderController');
 router
   .route('/')
   .post(protect, orderController.addOrderItems)
-  .get(protect, admin, orderController.getOrders);
+  .get(protect, admin, orderController.getAllOrders);
 router.route('/myorders').get(protect, orderController.getMyOrders);
 router.route('/:id').get(protect, orderController.getOrderById);
 router.route('/:id/pay').put(protect, orderController.updateOrderToPaid);
