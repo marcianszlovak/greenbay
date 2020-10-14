@@ -17,6 +17,10 @@ export default class ProductService {
     };
   };
 
+  getTop = async () => {
+    return await Product.find({}).sort({ rating: -1 }).limit(3);
+  };
+
   getAllMy = async (page, keyword, userId) => {
     const pageSize = 10;
 
@@ -40,10 +44,6 @@ export default class ProductService {
     }
 
     return product;
-  };
-
-  getTop = async () => {
-    return await Product.find({}).sort({ rating: -1 }).limit(3);
   };
 
   add = async (user, seller) => {

@@ -5,6 +5,27 @@ import Product from '../model/productModel.js';
 export default class OrderService {
   constructor() {}
 
+  getAll = async () => {
+    await Order.find({}).populate('user', 'id name');
+  };
+
+  getMy = async userId => {
+    return await Order.find({ user: userId });
+  };
+
+  getById = async orderId => {
+    const foundOrder = await Order.findById(orderId).populate(
+      'user',
+      'name email'
+    );
+
+    if (!foundOrder) {
+      throw new Error('Order not found');
+    }
+
+    return foundOrder;
+  };
+
   add = async (
     orderItems,
     user,
@@ -31,19 +52,6 @@ export default class OrderService {
 
       return await addedOrder.save();
     }
-  };
-
-  getById = async orderId => {
-    const foundOrder = await Order.findById(orderId).populate(
-      'user',
-      'name email'
-    );
-
-    if (!foundOrder) {
-      throw new Error('Order not found');
-    }
-
-    return foundOrder;
   };
 
   updateToPaid = async (
@@ -121,13 +129,5 @@ export default class OrderService {
     order.isDelivered = true;
     order.deliveredAt = Date.now();
     return await order.save();
-  };
-
-  getMy = async userId => {
-    return await Order.find({ user: userId });
-  };
-
-  getAll = async () => {
-    await Order.find({}).populate('user', 'id name');
   };
 }
