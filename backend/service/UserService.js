@@ -94,7 +94,6 @@ export default class UserService {
       name: updatedUser.name,
       email: updatedUser.email,
       money: updatedUser.money,
-      profilePicture: updatedUser.profilePicture,
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     };
@@ -105,7 +104,8 @@ export default class UserService {
     userName,
     userEmail,
     userMoney,
-    userPassword
+    userPassword,
+    userProfilePicture
   ) => {
     const user = await User.findById(userId);
 
@@ -116,6 +116,7 @@ export default class UserService {
     user.name = userName;
     user.email = userEmail;
     user.money = userMoney;
+    user.profilePicture = userProfilePicture;
     if (userPassword) {
       user.password = userPassword;
     }
@@ -128,6 +129,7 @@ export default class UserService {
       email: updatedUser.email,
       money: updatedUser.money,
       isAdmin: updatedUser.isAdmin,
+      profilePicture: updatedUser.profilePicture,
     };
   };
 

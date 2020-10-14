@@ -87,7 +87,8 @@ export default class UserController {
       req.body.name,
       req.body.email,
       req.body.money,
-      req.body.password
+      req.body.password,
+      req.body.profilePicture
     );
 
     if (!updatedUser) {
