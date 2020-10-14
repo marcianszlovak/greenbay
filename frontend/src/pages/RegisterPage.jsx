@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { register, getUserDetails } from '../redux/actions/userActions';
+import { getUserDetails, register } from '../redux/actions/userActions';
 
 const RegisterPage = ({ location, history }) => {
   const [name, setName] = useState('');
@@ -25,7 +25,7 @@ const RegisterPage = ({ location, history }) => {
       history.push(redirect);
       dispatch(getUserDetails('profile'));
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, redirect, dispatch]);
 
   const submitHandler = e => {
     e.preventDefault();
