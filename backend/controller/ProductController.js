@@ -85,7 +85,6 @@ export default class ProductController {
       req.body.brand,
       req.body.category,
       req.body.countInStock,
-      req.body.countInStock,
       req.body.userProfilePicture
     );
 
