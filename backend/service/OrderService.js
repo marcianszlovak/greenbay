@@ -6,7 +6,7 @@ export default class OrderService {
   constructor() {}
 
   getAll = async () => {
-    await Order.find({}).populate('user', 'id name');
+    return Order.find({}).populate('user', 'id name');
   };
 
   getMy = async userId => {
