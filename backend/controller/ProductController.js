@@ -1,5 +1,4 @@
 import asyncHandler from 'express-async-handler';
-import Product from '../model/productModel.js';
 
 export default class ProductController {
   constructor({ productService }) {
@@ -77,35 +76,25 @@ export default class ProductController {
   });
 
   updateProduct = asyncHandler(async (req, res) => {
-    const {
-      name,
-      price,
-      description,
-      image,
-      brand,
-      category,
-      countInStock,
-      userProfilePicture,
-    } = req.body;
+    const updatedProduct = await this.productService.update(
+      req.params.id,
+      req.body.name,
+      req.body.price,
+      req.body.description,
+      req.body.image,
+      req.body.brand,
+      req.body.category,
+      req.body.countInStock,
+      req.body.countInStock,
+      req.body.userProfilePicture
+    );
 
-    const product = await Product.findById(req.params.id);
-
-    if (product) {
-      product.name = name;
-      product.price = price;
-      product.description = description;
-      product.image = image;
-      product.brand = brand;
-      product.category = category;
-      product.countInStock = countInStock;
-      product.userProfilePicture = userProfilePicture;
-
-      const updatedProduct = await product.save();
-      res.json(updatedProduct);
-    } else {
+    if (!updatedProduct) {
       res.status(404);
-      throw new Error('Product not found');
+      throw new Error(`Failed to update product with ${req.params.id}`);
     }
+
+    res.json(updatedProduct);
   });
 
   addProductReview = asyncHandler(async (req, res) => {

@@ -65,13 +65,13 @@ export default class ProductService {
 
   update = async (
     productId,
-    name,
-    price,
-    description,
-    image,
-    brand,
-    category,
-    countInStock,
+    productName,
+    productPrice,
+    productDescription,
+    productImage,
+    productBrand,
+    productCategory,
+    productCountInStock,
     userProfilePicture
   ) => {
     const product = await Product.findById(productId);
@@ -80,13 +80,13 @@ export default class ProductService {
       throw new Error('Product not found');
     }
 
-    product.name = name;
-    product.price = price;
-    product.description = description;
-    product.image = image;
-    product.brand = brand;
-    product.category = category;
-    product.countInStock = countInStock;
+    product.name = productName;
+    product.price = productPrice;
+    product.description = productDescription;
+    product.image = productImage;
+    product.brand = productBrand;
+    product.category = productCategory;
+    product.countInStock = productCountInStock;
     product.userProfilePicture = userProfilePicture;
 
     return await product.save();
@@ -123,5 +123,15 @@ export default class ProductService {
       product.reviews.length;
 
     return await product.save();
+  };
+
+  delete = async productId => {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      throw new Error(`Product with ${productId} not found`);
+    }
+
+    return await product.remove();
   };
 }
