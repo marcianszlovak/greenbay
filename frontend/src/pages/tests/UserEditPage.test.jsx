@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import UserEditPage from '../UserEditPage';
-import store from '../../store';
+import store from '../../redux/store';
 
 describe('UserEditPage Component', () => {
   const MockUserEditPage = (

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import HomePage from '../HomePage';
-import store from '../../store';
+import store from '../../redux/store';
 
 describe('HomePage Component', () => {
   const MockHomePage = (

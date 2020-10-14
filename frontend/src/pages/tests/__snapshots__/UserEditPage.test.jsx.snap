@@ -3,97 +3,89 @@
 exports[`UserEditPage Component should match the snapshot 1`] = `
 Array [
   <a
-    className="btn btn-light my-3"
+    className="btn btn-danger my-3"
     href="/admin/userlist"
     onClick={[Function]}
   >
     Go Back
   </a>,
   <div
-    className="container"
+    className="justify-content-center align-items-center container bg-light p-4"
   >
-    <div
-      className="justify-content-md-center row"
+    <h1>
+      Edit User
+    </h1>
+    <form
+      className=""
+      onSubmit={[Function]}
     >
       <div
-        className="col-md-6 col-12"
+        className="form-group"
       >
-        <h1>
-          Edit User
-        </h1>
-        <form
-          className=""
-          onSubmit={[Function]}
+        <label
+          className="form-label"
+          htmlFor="name"
         >
-          <div
-            className="form-group"
-          >
-            <label
-              className="form-label"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className="form-control"
-              id="name"
-              onChange={[Function]}
-              placeholder="Enter name"
-              type="name"
-              value=""
-            />
-          </div>
-          <div
-            className="form-group"
-          >
-            <label
-              className="form-label"
-              htmlFor="email"
-            >
-              Email Address
-            </label>
-            <input
-              className="form-control"
-              id="email"
-              onChange={[Function]}
-              placeholder="Enter email"
-              type="email"
-              value=""
-            />
-          </div>
-          <div
-            className="form-group"
-          >
-            <div
-              className="form-check"
-            >
-              <input
-                checked={false}
-                className="form-check-input"
-                disabled={false}
-                id="isadmin"
-                onChange={[Function]}
-                type="checkbox"
-              />
-              <label
-                className="form-check-label"
-                htmlFor="isadmin"
-                title=""
-              >
-                Is Admin
-              </label>
-            </div>
-          </div>
-          <button
-            className="btn btn-primary"
-            disabled={false}
-            type="submit"
-          >
-            Update
-          </button>
-        </form>
+          Name
+        </label>
+        <input
+          className="form-control"
+          id="name"
+          onChange={[Function]}
+          placeholder="Enter name"
+          type="name"
+          value=""
+        />
       </div>
-    </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className="form-label"
+          htmlFor="email"
+        >
+          Email Address
+        </label>
+        <input
+          className="form-control"
+          id="email"
+          onChange={[Function]}
+          placeholder="Enter email"
+          type="email"
+          value=""
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <div
+          className="form-check"
+        >
+          <input
+            checked={false}
+            className="form-check-input"
+            disabled={false}
+            id="isadmin"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="isadmin"
+            title=""
+          >
+            Is Admin
+          </label>
+        </div>
+      </div>
+      <button
+        className="btn btn-success"
+        disabled={false}
+        type="submit"
+      >
+        Update
+      </button>
+    </form>
   </div>,
 ]
 `;

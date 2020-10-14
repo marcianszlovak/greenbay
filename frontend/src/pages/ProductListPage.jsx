@@ -8,17 +8,22 @@ import Paginate from '../components/Paginate';
 import {
   createProduct,
   deleteProduct,
-  listProducts,
-} from '../actions/productActions';
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+  listMyProducts,
+} from '../redux/actions/productActions';
 
 const ProductListPage = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
-  const productList = useSelector(state => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const productListMy = useSelector(state => state.productListMy);
+  const {
+    loading: loadingProducts,
+    error: errorProducts,
+    products,
+    page,
+    pages,
+  } = productListMy;
 
   const productDelete = useSelector(state => state.productDelete);
   const {
@@ -39,16 +44,16 @@ const ProductListPage = ({ history, match }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch({ type: PRODUCT_CREATE_RESET });
+    dispatch(listMyProducts('', pageNumber));
 
-    if (!userInfo || !userInfo.isAdmin) {
+    if (!userInfo) {
       history.push('/login');
     }
 
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct._id}/edit`);
+      history.push(`/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts('', pageNumber));
+      dispatch(listMyProducts('', pageNumber));
     }
   }, [
     dispatch,
@@ -72,30 +77,43 @@ const ProductListPage = ({ history, match }) => {
 
   return (
     <>
-      <Row className="align-items-center">
-        <Col>
-          <h1>Products</h1>
-        </Col>
-        <Col className="text-right">
-          <Button className="my-3" onClick={createProductHandler}>
-            <i className="fas fa-plus" /> Create Product
-          </Button>
-        </Col>
-      </Row>
+      <div className="w-75 m-auto">
+        <Row>
+          <Col>
+            <h1>My products</h1>
+          </Col>
+          <Col className="text-right">
+            <Button
+              className="my-3"
+              onClick={createProductHandler}
+              variant="success"
+            >
+              <i className="fas fa-plus" /> SELL PRODUCT
+            </Button>
+          </Col>
+        </Row>
+      </div>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loadingCreate && <Loader />}
       {errorCreate && <Message variant="danger">{errorCreate}</Message>}
-      {loading ? (
+      {loadingProducts ? (
         <Loader />
-      ) : error ? (
-        <Message variant="danger">{error}</Message>
+      ) : errorProducts ? (
+        <Message variant="danger">{errorProducts}</Message>
       ) : (
         <>
-          <Table striped bordered hover responsive className="table-sm">
+          <Table
+            striped
+            bordered
+            hover
+            responsive
+            className="table-sm w-75 m-auto"
+          >
             <thead>
               <tr>
-                <th>ID</th>
+                <th>PRODUCT ID</th>
+                <th>SELLER ID</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
@@ -107,13 +125,14 @@ const ProductListPage = ({ history, match }) => {
               {products.map(product => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
+                  <td>{product.user}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-                  <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant="light" className="btn-sm">
+                  <td className="text-center pl-0 pr-0 mt-0">
+                    <LinkContainer to={`/product/${product._id}/edit`}>
+                      <Button variant="success" className="btn-sm">
                         <i className="fas fa-edit" />
                       </Button>
                     </LinkContainer>

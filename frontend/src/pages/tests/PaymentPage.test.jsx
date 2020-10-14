@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import PaymentPage from '../PaymentPage';
-import store from '../../store';
+import store from '../../redux/store';
 
 describe('PaymentPage Component', () => {
   const MockPaymentPage = (

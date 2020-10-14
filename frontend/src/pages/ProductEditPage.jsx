@@ -1,13 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
-import { listProductDetails, updateProduct } from '../actions/productActions';
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
+import {
+  listProductDetails,
+  updateProduct,
+} from '../redux/actions/productActions';
+import { PRODUCT_UPDATE_RESET } from '../redux/constants/productConstants';
 
 const ProductEditPage = ({ match, history }) => {
   const productId = match.params.id;
@@ -17,11 +18,14 @@ const ProductEditPage = ({ match, history }) => {
   const [image, setImage] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
+  const [userProfilePicture, setUserProfilePicture] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
-  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
+
+  const userDetails = useSelector(state => state.userDetails);
+  const { user } = userDetails;
 
   const productDetails = useSelector(state => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -36,7 +40,7 @@ const ProductEditPage = ({ match, history }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
-      history.push('/admin/productlist');
+      history.push('/productlist');
     } else {
       if (!product.name || product._id !== productId) {
         dispatch(listProductDetails(productId));
@@ -46,34 +50,19 @@ const ProductEditPage = ({ match, history }) => {
         setImage(product.image);
         setBrand(product.brand);
         setCategory(product.category);
-        setCountInStock(product.countInSock);
+        setCountInStock(product.countInStock);
         setDescription(product.description);
+        setUserProfilePicture(user.profilePicture);
       }
     }
-  }, [dispatch, history, productId, product, successUpdate]);
-
-  const uploadFileHandler = async e => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file);
-    setUploading(true);
-
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
-
-      const { data } = await axios.post('/api/upload', formData, config);
-
-      setImage(data);
-      setUploading(false);
-    } catch (error) {
-      console.error(error);
-      setUploading(false);
-    }
-  };
+  }, [
+    dispatch,
+    history,
+    productId,
+    product,
+    successUpdate,
+    user.profilePicture,
+  ]);
 
   const submitHandler = e => {
     e.preventDefault();
@@ -87,16 +76,17 @@ const ProductEditPage = ({ match, history }) => {
         category,
         description,
         countInStock,
+        userProfilePicture,
       })
     );
   };
 
   return (
     <>
-      <Link to="/admin/productlist" className="btn btn-light my-3">
+      <Link to="/productlist" className="btn btn-danger my-3">
         Go Back
       </Link>
-      <FormContainer>
+      <div className="justify-content-center align-items-center container  bg-light p-5">
         <h1>Edit Product</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
@@ -113,7 +103,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="price">
@@ -123,7 +113,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter price"
                 value={price}
                 onChange={e => setPrice(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="image">
@@ -133,14 +123,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter image url"
                 value={image}
                 onChange={e => setImage(e.target.value)}
-              ></Form.Control>
-              <Form.File
-                id="image-file"
-                label="Choose File"
-                custom
-                onChange={uploadFileHandler}
-              ></Form.File>
-              {uploading && <Loader />}
+              />
             </Form.Group>
 
             <Form.Group controlId="brand">
@@ -150,7 +133,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter brand"
                 value={brand}
                 onChange={e => setBrand(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="countInStock">
@@ -160,7 +143,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter countInStock"
                 value={countInStock}
                 onChange={e => setCountInStock(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="category">
@@ -170,7 +153,7 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter category"
                 value={category}
                 onChange={e => setCategory(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="description">
@@ -180,15 +163,15 @@ const ProductEditPage = ({ match, history }) => {
                 placeholder="Enter description"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="success">
               Update
             </Button>
           </Form>
         )}
-      </FormContainer>
+      </div>
     </>
   );
 };

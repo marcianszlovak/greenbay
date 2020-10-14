@@ -2,7 +2,7 @@
 
 exports[`should render correctly 1`] = `
 <div
-  className="my-3 p-3 rounded card"
+  className="mb-3 p-3 rounded h-auto card"
   id="product"
 >
   <a
@@ -40,7 +40,7 @@ exports[`should render correctly 1`] = `
             className="fas fa-star"
             style={
               Object {
-                "color": "#f8e825",
+                "color": "#4bbf73",
               }
             }
           />
@@ -50,7 +50,7 @@ exports[`should render correctly 1`] = `
             className="fas fa-star"
             style={
               Object {
-                "color": "#f8e825",
+                "color": "#4bbf73",
               }
             }
           />
@@ -60,7 +60,7 @@ exports[`should render correctly 1`] = `
             className="fas fa-star"
             style={
               Object {
-                "color": "#f8e825",
+                "color": "#4bbf73",
               }
             }
           />
@@ -70,7 +70,7 @@ exports[`should render correctly 1`] = `
             className="fas fa-star"
             style={
               Object {
-                "color": "#f8e825",
+                "color": "#4bbf73",
               }
             }
           />
@@ -80,7 +80,7 @@ exports[`should render correctly 1`] = `
             className="fas fa-star"
             style={
               Object {
-                "color": "#f8e825",
+                "color": "#4bbf73",
               }
             }
           />

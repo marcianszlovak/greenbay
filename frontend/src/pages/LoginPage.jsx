@@ -4,8 +4,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
-import { login } from '../actions/userActions';
+import { getUserDetails, login } from '../redux/actions/userActions';
 
 const LoginPage = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -20,9 +19,10 @@ const LoginPage = ({ location, history }) => {
 
   useEffect(() => {
     if (userInfo) {
+      dispatch(getUserDetails('profile'));
       history.push(redirect);
     }
-  }, [history, userInfo, redirect]);
+  }, [history, userInfo, redirect, dispatch]);
 
   const submitHandler = e => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const LoginPage = ({ location, history }) => {
   };
 
   return (
-    <FormContainer>
+    <div className="justify-content-center align-items-center container bg-light p-4">
       <h1>Sign In</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
@@ -55,20 +55,20 @@ const LoginPage = ({ location, history }) => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="success">
           Sign In
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          New Customer?{' '}
+          Don't have an account?{' '}
           <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
+            Sign up
           </Link>
         </Col>
       </Row>
-    </FormContainer>
+    </div>
   );
 };
 

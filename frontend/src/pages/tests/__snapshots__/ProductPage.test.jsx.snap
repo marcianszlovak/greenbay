@@ -3,7 +3,7 @@
 exports[`ProductPage Component should match the snapshot 1`] = `
 Array [
   <a
-    className="btn btn-light my-3"
+    className="btn btn-danger my-3"
     href="/"
     onClick={[Function]}
   >
@@ -23,7 +23,7 @@ Array [
       className="col-md-3"
     >
       <div
-        className="list-group list-group-flush"
+        className="list-group"
         onKeyDown={[Function]}
       >
         <div
@@ -48,7 +48,7 @@ Array [
                 className="far fa-star"
                 style={
                   Object {
-                    "color": "#f8e825",
+                    "color": "#4bbf73",
                   }
                 }
               />
@@ -58,7 +58,7 @@ Array [
                 className="far fa-star"
                 style={
                   Object {
-                    "color": "#f8e825",
+                    "color": "#4bbf73",
                   }
                 }
               />
@@ -68,7 +68,7 @@ Array [
                 className="far fa-star"
                 style={
                   Object {
-                    "color": "#f8e825",
+                    "color": "#4bbf73",
                   }
                 }
               />
@@ -78,7 +78,7 @@ Array [
                 className="far fa-star"
                 style={
                   Object {
-                    "color": "#f8e825",
+                    "color": "#4bbf73",
                   }
                 }
               />
@@ -88,7 +88,7 @@ Array [
                 className="far fa-star"
                 style={
                   Object {
-                    "color": "#f8e825",
+                    "color": "#4bbf73",
                   }
                 }
               />
@@ -97,15 +97,6 @@ Array [
               undefined reviews
             </span>
           </div>
-        </div>
-        <div
-          className="list-group-item"
-          data-rb-event-key={null}
-          disabled={false}
-          onClick={[Function]}
-        >
-          Price: 
-           credits
         </div>
         <div
           className="list-group-item"
@@ -137,6 +128,30 @@ Array [
               className="row"
             >
               <div
+                className="mt-3 col"
+              >
+                Seller:
+              </div>
+              <div
+                className="col"
+              >
+                <img
+                  className="img-fluid"
+                  id="profile-picture-product"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="list-group-item"
+            data-rb-event-key={null}
+            disabled={false}
+            onClick={[Function]}
+          >
+            <div
+              className="row"
+            >
+              <div
                 className="col"
               >
                 Price:
@@ -144,7 +159,9 @@ Array [
               <div
                 className="col"
               >
-                <strong />
+                <strong>
+                   credits
+                </strong>
               </div>
             </div>
           </div>
@@ -176,7 +193,7 @@ Array [
             onClick={[Function]}
           >
             <button
-              className="btn-block btn btn-primary"
+              className="btn-block btn btn-success"
               disabled={false}
               onClick={[Function]}
               type="button"
@@ -204,7 +221,7 @@ Array [
         No Reviews
       </div>
       <div
-        className="list-group list-group-flush"
+        className="list-group"
         onKeyDown={[Function]}
       >
         <div
@@ -214,7 +231,7 @@ Array [
           onClick={[Function]}
         >
           <h2>
-            Write a Customer Review
+            Write a Review
           </h2>
           <div
             className="fade alert alert-info show"

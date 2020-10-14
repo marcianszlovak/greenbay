@@ -4,9 +4,8 @@ import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
-import { getUserDetails, updateUser } from '../actions/userActions';
-import { USER_UPDATE_RESET } from '../constants/userConstants';
+import { getUserDetails, updateUser } from '../redux/actions/userActions';
+import { USER_UPDATE_RESET } from '../redux/constants/userConstants';
 
 const UserEditPage = ({ match, history }) => {
   const userId = match.params.id;
@@ -29,6 +28,7 @@ const UserEditPage = ({ match, history }) => {
 
   useEffect(() => {
     if (successUpdate) {
+      dispatch(getUserDetails('profile'));
       dispatch({ type: USER_UPDATE_RESET });
       history.push('/admin/userlist');
     } else {
@@ -49,10 +49,14 @@ const UserEditPage = ({ match, history }) => {
 
   return (
     <>
-      <Link to="/admin/userlist" className="btn btn-light my-3">
+      <Link
+        to="/admin/userlist"
+        className="btn btn-danger my-3"
+        onClick={() => dispatch(getUserDetails('profile'))}
+      >
         Go Back
       </Link>
-      <FormContainer>
+      <div className="justify-content-center align-items-center container bg-light p-4">
         <h1>Edit User</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
@@ -91,12 +95,12 @@ const UserEditPage = ({ match, history }) => {
               />
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="success">
               Update
             </Button>
           </Form>
         )}
-      </FormContainer>
+      </div>
     </>
   );
 };

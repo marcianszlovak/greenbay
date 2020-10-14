@@ -5,9 +5,7 @@ import Product from '../components/Product';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
-import { listProducts } from '../actions/productActions';
-import { getUserDetails } from '../actions/userActions';
-import { listMyOrders } from '../actions/orderActions';
+import { listProducts } from '../redux/actions/productActions';
 
 const HomePage = ({ match }) => {
   const keyword = match.params.keyword;
@@ -23,14 +21,12 @@ const HomePage = ({ match }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    dispatch(getUserDetails('profile'));
-    dispatch(listMyOrders());
     dispatch(listProducts(keyword, pageNumber));
   }, [dispatch, keyword, pageNumber, userInfo]);
 
   return (
     <>
-      <h1>Recently Added</h1>
+      <h1 id="recently-added">Recently Added</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -39,7 +35,14 @@ const HomePage = ({ match }) => {
         <>
           <Row>
             {products.map(product => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Col
+                key={product._id}
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                className="mb-2"
+              >
                 <Product product={product} />
               </Col>
             ))}

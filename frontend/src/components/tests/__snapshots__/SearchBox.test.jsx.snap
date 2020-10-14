@@ -2,18 +2,19 @@
 
 exports[`should render correctly 1`] = `
 <form
-  className="form-inline"
+  className="mx-auto d-inline-flex"
   onSubmit={[Function]}
 >
   <input
-    className="mr-sm-2 ml-sm-5 form-control"
+    className="mt-3 form-control"
+    id="search-box"
     name="q"
     onChange={[Function]}
     placeholder="Search Products..."
     type="text"
   />
   <button
-    className="p-2 btn btn-outline-success"
+    className="btn btn-success"
     disabled={false}
     id="search-box-btn"
     type="submit"

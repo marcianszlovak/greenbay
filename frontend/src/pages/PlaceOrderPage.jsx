@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
-import CheckoutPage from '../components/CheckoutPage';
-import { createOrder } from '../actions/orderActions';
+import CheckoutBar from '../components/CheckoutBar';
+import { createOrder } from '../redux/actions/orderActions';
 
 const PlaceOrderPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const cart = useSelector(state => state.cart);
 
-  //   Calculate prices
   const addDecimals = num => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -33,9 +32,9 @@ const PlaceOrderPage = ({ history }) => {
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
+      window.location.reload();
     }
-    // eslint-disable-next-line
-  }, [history, success]);
+  }, [history, success, order]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -53,10 +52,10 @@ const PlaceOrderPage = ({ history }) => {
 
   return (
     <>
-      <CheckoutPage step1 step2 step3 step4 />
+      <CheckoutBar step1 step2 step3 step4 />
       <Row>
         <Col md={8}>
-          <ListGroup variant="flush">
+          <ListGroup>
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
@@ -78,7 +77,7 @@ const PlaceOrderPage = ({ history }) => {
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
-                <ListGroup variant="flush">
+                <ListGroup>
                   {cart.cartItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -88,6 +87,7 @@ const PlaceOrderPage = ({ history }) => {
                             alt={item.name}
                             fluid
                             rounded
+                            id="order-image"
                           />
                         </Col>
                         <Col>
@@ -96,7 +96,8 @@ const PlaceOrderPage = ({ history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x {item.price} = {item.qty * item.price}{' '}
+                          credits
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -115,34 +116,37 @@ const PlaceOrderPage = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${cart.itemsPrice}</Col>
+                  <Col>{cart.itemsPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${cart.shippingPrice}</Col>
+                  <Col>{cart.shippingPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${cart.taxPrice}</Col>
+                  <Col>{cart.taxPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${cart.totalPrice}</Col>
+                  <Col>{cart.totalPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant="danger">{error}</Message>}
-              </ListGroup.Item>
+              {error ? (
+                <ListGroup.Item>
+                  <Message variant="danger">{error}</Message>}
+                </ListGroup.Item>
+              ) : null}
               <ListGroup.Item>
                 <Button
                   type="button"
                   className="btn-block"
+                  variant="success"
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >

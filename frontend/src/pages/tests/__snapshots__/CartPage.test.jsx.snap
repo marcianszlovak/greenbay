@@ -44,8 +44,9 @@ exports[`CartPage Component should match the snapshot 1`] = `
             0
             ) items
           </h2>
-          $
           0.00
+           
+          credits
         </div>
         <div
           className="list-group-item"
@@ -54,7 +55,7 @@ exports[`CartPage Component should match the snapshot 1`] = `
           onClick={[Function]}
         >
           <button
-            className="btn-block btn btn-primary"
+            className="btn-block btn btn-success"
             disabled={true}
             onClick={[Function]}
             type="button"

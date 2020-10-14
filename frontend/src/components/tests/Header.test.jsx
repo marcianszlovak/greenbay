@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 
 import Header from '../Header';
-import store from '../../store';
+import store from '../../redux/store';
 
 describe('Header Component', () => {
   const MockHeader = (

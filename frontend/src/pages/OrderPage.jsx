@@ -9,12 +9,14 @@ import {
   getOrderDetails,
   listMyOrders,
   payOrder,
-} from '../actions/orderActions';
+} from '../redux/actions/orderActions';
 import {
   ORDER_DELIVER_RESET,
   ORDER_PAY_RESET,
-} from '../constants/orderConstants';
-import { getUserDetails } from '../actions/userActions';
+} from '../redux/constants/orderConstants';
+import { emptyCart } from '../redux/actions/cartActions';
+import moment from 'moment';
+import { getUserDetails } from '../redux/actions/userActions';
 
 const OrderPage = ({ match, history }) => {
   const orderId = match.params.id;
@@ -36,32 +38,27 @@ const OrderPage = ({ match, history }) => {
   const userDetails = useSelector(state => state.userDetails);
   const { user } = userDetails;
 
-  if (!loading) {
-    const addDecimals = num => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
-
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
-
-    user.money = addDecimals(user.money);
-  }
+  const addDecimals = num => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     }
 
-    dispatch({ type: ORDER_PAY_RESET });
-    dispatch({ type: ORDER_DELIVER_RESET });
-    dispatch(getUserDetails('profile'));
-    dispatch(listMyOrders());
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId, successPay, successDeliver, userInfo, history]);
+    if (!order || successPay || successDeliver) {
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
+      dispatch(getOrderDetails(orderId));
+      dispatch(getUserDetails('profile'));
+      dispatch(listMyOrders());
+    }
+  }, [dispatch, orderId, successPay, successDeliver, order, userInfo, history]);
 
-  const paymentHandler = paymentResult => {
-    dispatch(payOrder(orderId, paymentResult));
+  const paymentHandler = () => {
+    dispatch(payOrder(orderId));
+    dispatch(emptyCart());
   };
 
   const deliverHandler = () => {
@@ -77,7 +74,7 @@ const OrderPage = ({ match, history }) => {
       <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>
-          <ListGroup variant="flush">
+          <ListGroup>
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
@@ -95,7 +92,8 @@ const OrderPage = ({ match, history }) => {
               </p>
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered on {order.deliveredAt}
+                  Delivered on{' '}
+                  {moment(order.deliveredAt).format('YYYY/MM/D [at] hh:mm:ss')}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
@@ -109,7 +107,10 @@ const OrderPage = ({ match, history }) => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">
+                  Paid on{' '}
+                  {moment(order.paidAt).format('YYYY/MM/D [at] hh:mm:ss')}
+                </Message>
               ) : (
                 <Message variant="danger">Not Paid</Message>
               )}
@@ -120,7 +121,7 @@ const OrderPage = ({ match, history }) => {
               {order.orderItems.length === 0 ? (
                 <Message>Order is empty</Message>
               ) : (
-                <ListGroup variant="flush">
+                <ListGroup>
                   {order.orderItems.map((item, index) => (
                     <ListGroup.Item key={index}>
                       <Row>
@@ -130,6 +131,7 @@ const OrderPage = ({ match, history }) => {
                             alt={item.name}
                             fluid
                             rounded
+                            id="order-image"
                           />
                         </Col>
                         <Col>
@@ -138,7 +140,8 @@ const OrderPage = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = ${item.qty * item.price}
+                          {item.qty} x {item.price} = {item.qty * item.price}{' '}
+                          credits
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -156,32 +159,40 @@ const OrderPage = ({ match, history }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>greenBay credits</Col>
-                  <Col>${user.money}</Col>
+                  <Col>Available Credits</Col>
+                  <Col>{addDecimals(user.money)} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${order.itemsPrice}</Col>
+                  <Col>
+                    {addDecimals(
+                      order.orderItems.reduce(
+                        (acc, item) => acc + item.price * item.qty,
+                        0
+                      )
+                    )}{' '}
+                    credits
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${order.shippingPrice}</Col>
+                  <Col>{order.shippingPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${order.taxPrice}</Col>
+                  <Col>{order.taxPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${order.totalPrice}</Col>
+                  <Col>{order.totalPrice} credits</Col>
                 </Row>
               </ListGroup.Item>
               {loadingPay && <Loader />}
@@ -211,6 +222,7 @@ const OrderPage = ({ match, history }) => {
                   <Button
                     type="button"
                     className="btn btn-block"
+                    variant="success"
                     onClick={paymentHandler}
                   >
                     Pay
@@ -227,6 +239,7 @@ const OrderPage = ({ match, history }) => {
                     <Button
                       type="button"
                       className="btn btn-block"
+                      variant="success"
                       onClick={deliverHandler}
                     >
                       Mark As Delivered

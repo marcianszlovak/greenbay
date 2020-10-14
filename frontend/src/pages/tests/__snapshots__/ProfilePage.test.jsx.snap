@@ -8,10 +8,54 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
     className="col-md-3"
   >
     <h2>
-      User Profile
+      My Profile
+    </h2>
+    <div
+      className="fade alert alert-success show"
+      role="alert"
+    >
+      Profile Updated
+    </div>
+    <div
+      className="mb-5 card"
+    >
+      <img
+        className="card-img-top"
+        id="profile-picture"
+      />
+      <div
+        className="card-body"
+      >
+        <div
+          className="card-title h5"
+        >
+          Name: 
+        </div>
+        <div
+          className="card-title h5"
+        >
+          Email: 
+        </div>
+        <div
+          className="card-title h5"
+        >
+          Credits: 
+        </div>
+        <button
+          className="btn btn-success"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          View my products
+        </button>
+      </div>
+    </div>
+    <h2>
+      Edit Profile
     </h2>
     <form
-      className=""
+      className="bg-light p-3"
       onSubmit={[Function]}
     >
       <div
@@ -55,16 +99,16 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
       >
         <label
           className="form-label"
-          htmlFor="money"
+          htmlFor="image"
         >
-          Money
+          Add/Edit Profile Picture
         </label>
         <input
           className="form-control"
-          id="money"
+          id="image"
           onChange={[Function]}
-          placeholder="Enter money amount"
-          type="number"
+          placeholder="Enter image url"
+          type="text"
           value=""
         />
       </div>
@@ -105,7 +149,7 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
         />
       </div>
       <button
-        className="btn btn-primary"
+        className="btn btn-success"
         disabled={false}
         type="submit"
       >
@@ -120,7 +164,7 @@ exports[`ProfilePage Component should match the snapshot 1`] = `
       My Orders
     </h2>
     <table
-      className="table-sm table table-striped table-bordered table-hover"
+      className="table-sm bg-light table table-striped table-bordered table-hover"
     >
       <thead>
         <tr>

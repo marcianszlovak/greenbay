@@ -5,12 +5,17 @@ Array [
   <div
     className="justify-content-center mb-4 nav"
     onKeyDown={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#f8f8f8",
+      }
+    }
   >
     <div
       className="nav-item"
     >
       <a
-        className="nav-link"
+        className="nav-link active"
         data-rb-event-key="/login"
         href="/login"
         onClick={[Function]}
@@ -54,6 +59,11 @@ Array [
         href="/placeorder"
         onClick={[Function]}
         onKeyDown={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#f8f8f8",
+          }
+        }
       >
         Place Order
       </a>
@@ -66,7 +76,7 @@ Array [
       className="col-md-8"
     >
       <div
-        className="list-group list-group-flush"
+        className="list-group"
         onKeyDown={[Function]}
       >
         <div
@@ -156,8 +166,8 @@ Array [
               <div
                 className="col"
               >
-                $
                 0.00
+                 credits
               </div>
             </div>
           </div>
@@ -178,8 +188,8 @@ Array [
               <div
                 className="col"
               >
-                $
                 100.00
+                 credits
               </div>
             </div>
           </div>
@@ -200,8 +210,8 @@ Array [
               <div
                 className="col"
               >
-                $
                 0.00
+                 credits
               </div>
             </div>
           </div>
@@ -222,8 +232,8 @@ Array [
               <div
                 className="col"
               >
-                $
                 100.00
+                 credits
               </div>
             </div>
           </div>
@@ -232,15 +242,9 @@ Array [
             data-rb-event-key={null}
             disabled={false}
             onClick={[Function]}
-          />
-          <div
-            className="list-group-item"
-            data-rb-event-key={null}
-            disabled={false}
-            onClick={[Function]}
           >
             <button
-              className="btn-block btn btn-primary"
+              className="btn-block btn btn-success"
               disabled={false}
               onClick={[Function]}
               type="button"

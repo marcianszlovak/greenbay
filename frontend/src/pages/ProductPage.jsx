@@ -16,8 +16,8 @@ import Loader from '../components/Loader';
 import {
   createProductReview,
   listProductDetails,
-} from '../actions/productActions';
-import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
+} from '../redux/actions/productActions';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productConstants';
 
 const ProductPage = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -49,6 +49,8 @@ const ProductPage = ({ history, match }) => {
   }, [dispatch, match, successProductReview]);
 
   const addToCartHandler = () => {
+    console.log(product);
+
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
@@ -64,7 +66,7 @@ const ProductPage = ({ history, match }) => {
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
+      <Link className="btn btn-danger my-3" to="/">
         Go Back
       </Link>
       {loading ? (
@@ -78,7 +80,7 @@ const ProductPage = ({ history, match }) => {
               <Image src={product.image} alt={product.name} fluid />
             </Col>
             <Col md={3}>
-              <ListGroup variant="flush">
+              <ListGroup>
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
@@ -88,7 +90,6 @@ const ProductPage = ({ history, match }) => {
                     text={`${product.numReviews} reviews`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Price: {product.price} credits</ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
                 </ListGroup.Item>
@@ -99,9 +100,22 @@ const ProductPage = ({ history, match }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
+                      <Col className="mt-3">Seller:</Col>
+                      <Col>
+                        {product.seller}
+                        <Image
+                          src={product.userProfilePicture}
+                          fluid
+                          id="profile-picture-product"
+                        />
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>{product.price}</strong>
+                        <strong>{product.price} credits</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -118,12 +132,13 @@ const ProductPage = ({ history, match }) => {
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Quantity</Col>
+                        <Col className="mt-2">Quantity:</Col>
                         <Col>
                           <Form.Control
                             as="select"
                             value={qty}
                             onChange={e => setQty(e.target.value)}
+                            className="custom-select custom-select-m"
                           >
                             {[...Array(product.countInStock).keys()].map(x => (
                               <option key={x + 1} value={x + 1}>
@@ -141,6 +156,7 @@ const ProductPage = ({ history, match }) => {
                       onClick={addToCartHandler}
                       className="btn-block"
                       type="button"
+                      variant="success"
                       disabled={product.countInStock === 0}
                     >
                       Add To Cart
@@ -154,7 +170,7 @@ const ProductPage = ({ history, match }) => {
             <Col md={6}>
               <h2>Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant="flush">
+              <ListGroup>
                 {product.reviews.map(review => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
@@ -164,7 +180,7 @@ const ProductPage = ({ history, match }) => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Customer Review</h2>
+                  <h2>Write a Review</h2>
                   {errorProductReview && (
                     <Message variant="danger">{errorProductReview}</Message>
                   )}
@@ -176,6 +192,7 @@ const ProductPage = ({ history, match }) => {
                           as="select"
                           value={rating}
                           onChange={e => setRating(e.target.value)}
+                          className="custom-select custom-select-m"
                         >
                           <option value="">Select...</option>
                           <option value="1">1 - Poor</option>
@@ -194,7 +211,7 @@ const ProductPage = ({ history, match }) => {
                           onChange={e => setComment(e.target.value)}
                         />
                       </Form.Group>
-                      <Button type="submit" variant="primary">
+                      <Button type="submit" variant="success">
                         Submit
                       </Button>
                     </Form>
