@@ -58,12 +58,12 @@ export default class ProductController {
   deleteProduct = asyncHandler(async (req, res) => {
     const deletedProduct = await this.productService.delete(req.params.id);
 
-    if (deletedProduct) {
-      res.json({ message: 'Product removed' });
-    } else {
+    if (!deletedProduct) {
       res.status(404);
-      throw new Error('Product not found');
+      throw new Error(`Failed to remove product with ID ${req.params.id}.`);
     }
+
+    res.json({ message: `Product with id ${req.params.id} removed` });
   });
 
   createProduct = asyncHandler(async (req, res) => {
