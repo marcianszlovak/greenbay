@@ -10,7 +10,7 @@ const userController = container.resolve('userController');
 router
   .route('/')
   .post(userController.registerUser)
-  .get(protect, admin, userController.getUsers);
+  .get(protect, admin, userController.getAllUsers);
 router.post('/login', userController.authUser);
 router
   .route('/profile')

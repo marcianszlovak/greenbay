@@ -72,23 +72,6 @@ Array [
           type="text"
           value=""
         />
-        <div
-          className="custom custom-file"
-        >
-          <input
-            className="custom-file-input"
-            disabled={false}
-            id="image-file"
-            onChange={[Function]}
-            type="file"
-          />
-          <label
-            className="custom-file-label"
-            htmlFor="image-file"
-          >
-            Choose File
-          </label>
-        </div>
       </div>
       <div
         className="form-group"

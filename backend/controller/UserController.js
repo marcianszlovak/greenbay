@@ -1,111 +1,101 @@
 import asyncHandler from 'express-async-handler';
-import generateToken from '../utils/generateToken.js';
 import User from '../model/userModel.js';
 
 export default class UserController {
-  constructor() {}
-  authUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+  constructor({ userService }) {
+    this.userService = userService;
+  }
 
-    const user = await User.findOne({ email });
+  getAllUsers = asyncHandler(async (req, res) => {
+    const users = await this.userService.getAll();
 
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        money: user.money,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(401);
-      throw new Error('Invalid email or password');
-    }
+    res.json(users);
   });
 
-  registerUser = asyncHandler(async (req, res) => {
-    const { name, email, money, password } = req.body;
+  getUserById = asyncHandler(async (req, res) => {
+    const user = await this.userService.getById(req.params.id);
 
-    const userExists = await User.findOne({ email });
-
-    if (userExists) {
-      res.status(400);
-      throw new Error('User already exists');
+    if (!user) {
+      res.status(404);
+      throw new Error('User not found');
     }
 
-    const user = await User.create({
-      name,
-      email,
-      money,
-      password,
-    });
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        money: user.money,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(400);
-      throw new Error('Invalid user data');
-    }
+    res.json(user);
   });
 
   getUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const user = await this.userService.getProfile(req.user._id);
 
-    if (user) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        money: user.money,
-        profilePicture: user.profilePicture,
-        isAdmin: user.isAdmin,
-      });
-    } else {
+    if (!user) {
       res.status(404);
       throw new Error('User not found');
     }
+
+    res.json(user);
+  });
+
+  authUser = asyncHandler(async (req, res) => {
+    const authenticatedUser = await this.userService.authenticate(
+      req.body.email,
+      req.body.password
+    );
+
+    if (!authenticatedUser) {
+      res.status(401);
+      throw new Error('Authentication failed');
+    }
+
+    res.json(authenticatedUser);
+  });
+
+  registerUser = asyncHandler(async (req, res) => {
+    const registeredUser = await this.userService.register(
+      req.body.name,
+      req.body.email,
+      req.body.money,
+      req.body.password
+    );
+
+    if (!registeredUser) {
+      res.status(400);
+      throw new Error('Failed to register user');
+    }
+
+    res.status(201).json(registeredUser);
+  });
+
+  updateUser = asyncHandler(async (req, res) => {
+    const updatedUser = await this.userService.update(
+      req.params.id,
+      req.body.name,
+      req.body.email,
+      req.body.money,
+      req.body.isAdmin
+    );
+
+    if (!updatedUser) {
+      res.status(404);
+      throw new Error('Failed to update user');
+    }
+
+    res.json(updatedUser);
   });
 
   updateUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const updatedUser = await this.userService.updateProfile(
+      req.user._id,
+      req.body.name,
+      req.body.email,
+      req.body.money,
+      req.body.password
+    );
 
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      user.money = req.body.money || user.money;
-      user.profilePicture = req.body.profilePicture || user.profilePicture;
-      if (req.body.password) {
-        user.password = req.body.password;
-      }
-
-      const updatedUser = await user.save();
-
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        money: updatedUser.money,
-        profilePicture: updatedUser.profilePicture,
-        isAdmin: updatedUser.isAdmin,
-        token: generateToken(updatedUser._id),
-      });
-    } else {
+    if (!updatedUser) {
       res.status(404);
-      throw new Error('User not found');
+      throw new Error('Failed to update user');
     }
-  });
 
-  getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({});
-    res.json(users);
+    res.json(updatedUser);
   });
 
   deleteUser = asyncHandler(async (req, res) => {
@@ -114,41 +104,6 @@ export default class UserController {
     if (user) {
       await user.remove();
       res.json({ message: 'User removed' });
-    } else {
-      res.status(404);
-      throw new Error('User not found');
-    }
-  });
-
-  getUserById = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id).select('-password');
-
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404);
-      throw new Error('User not found');
-    }
-  });
-
-  updateUser = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
-
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      user.money = req.body.money || user.money;
-      user.isAdmin = req.body.isAdmin;
-
-      const updatedUser = await user.save();
-
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        money: updatedUser.money,
-        isAdmin: updatedUser.isAdmin,
-      });
     } else {
       res.status(404);
       throw new Error('User not found');

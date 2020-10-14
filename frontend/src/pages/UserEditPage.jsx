@@ -28,6 +28,7 @@ const UserEditPage = ({ match, history }) => {
 
   useEffect(() => {
     if (successUpdate) {
+      dispatch(getUserDetails('profile'));
       dispatch({ type: USER_UPDATE_RESET });
       history.push('/admin/userlist');
     } else {
@@ -48,7 +49,11 @@ const UserEditPage = ({ match, history }) => {
 
   return (
     <>
-      <Link to="/admin/userlist" className="btn btn-danger my-3">
+      <Link
+        to="/admin/userlist"
+        className="btn btn-danger my-3"
+        onClick={() => dispatch(getUserDetails('profile'))}
+      >
         Go Back
       </Link>
       <div className="justify-content-center align-items-center container bg-light p-4">
